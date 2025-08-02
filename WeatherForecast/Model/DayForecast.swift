@@ -1,10 +1,11 @@
 import Foundation
 
-struct DayForecast: Hashable {
+struct DayForecast: Hashable, Identifiable {
+    let id = UUID()
     
-    var date: String
-    var temperature: Int
-    var imageName: String
+    let date: String
+    let temperature: Int
+    let imageName: String
     
     init(from data: Forecast) {
         temperature = Int(data.main.temp - 273.15)
