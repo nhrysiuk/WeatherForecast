@@ -22,9 +22,7 @@ struct WeatherForecastView: View {
         }
         .padding()
         
-        Spacer()
-        
-        if !store.forecasts.isEmpty {
+        if store.hasForecasts {
             ScrollView {
                 LazyVStack {
                     ForEach(store.forecasts) { dayForecast in
@@ -34,33 +32,8 @@ struct WeatherForecastView: View {
             }
             .padding()
         }
-    }
-}
-
-struct WeatherForecastCellView: View {
-    
-    var dayForecast: DayForecast
-    
-    var body: some View {
-        HStack {
-            Image(systemName: dayForecast.imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 75, height: 75)
-            
-            Spacer()
-            VStack(spacing: 16) {
-                Text(dayForecast.date)
-                    .font(.caption)
-                Text("\(dayForecast.temperature)°C")
-                    .font(.title)
-                    .fontWeight(.semibold)
-            }
+        else {
+            EmptyView(messageText: EmptyViewNames.noForecastFound)
         }
     }
-}
-
-
-#Preview {
-    WeatherForecastCellView(dayForecast: DayForecast(date: "15 Aug", temperature: 13.5, imageName: "sun.max.fill"))
 }

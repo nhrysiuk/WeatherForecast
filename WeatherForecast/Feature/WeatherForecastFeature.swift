@@ -9,6 +9,9 @@ struct WeatherForecastFeature {
         var forecasts = [DayForecast]()
         var isShowingForecast = false
         var isForecastLoading = false
+        var hasForecasts: Bool {
+            !forecasts.isEmpty
+        }
     }
     
     enum Action {
