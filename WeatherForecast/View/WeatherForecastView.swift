@@ -5,14 +5,14 @@ struct WeatherForecastView: View {
     
     let store: StoreOf<WeatherForecastFeature>
     
-    @State private var text = ""
+    @State private var cityName = ""
     
     var body: some View {
         HStack {
-            TextField("Enter city name...", text: self.$text)
+            TextField("Enter city name...", text: self.$cityName)
                 .textFieldStyle(.roundedBorder)
             Button {
-                store.send(.searchButtonTapped(text))
+                store.send(.searchButtonTapped(cityName))
             } label: {
                 Image(systemName: "magnifyingglass.circle.fill")
                     .resizable()

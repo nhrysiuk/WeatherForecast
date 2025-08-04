@@ -12,9 +12,9 @@ struct Forecast: Codable {
     let dtTxt: String
     
     enum CodingKeys: String, CodingKey {
-           case main, weather
-           case dtTxt = "dt_txt"
-       }
+        case main, weather
+        case dtTxt = "dt_txt"
+    }
 }
 
 // MARK: - Clouds

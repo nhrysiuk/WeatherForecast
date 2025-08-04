@@ -16,7 +16,7 @@ struct WeatherForecastFeature {
         case forecastResponse([DayForecast])
     }
     
-    @Dependency(\.forecast) var forecast
+    @Dependency(\.weatherForecast) var weatherForecast
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -26,7 +26,7 @@ struct WeatherForecastFeature {
                 state.isForecastLoading = true
                 
                 return .run { send in
-                    try await send(.forecastResponse(forecast.fetch(cityName)))
+                    try await send(.forecastResponse(weatherForecast.fetch(cityName)))
                 }
                 
             case let .forecastResponse(forecasts):

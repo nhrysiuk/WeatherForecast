@@ -2,10 +2,12 @@ import Foundation
 import ComposableArchitecture
 
 struct WeatherForecastFetchClient {
+    
     var fetch: (String) async throws -> [DayForecast]
 }
 
 extension WeatherForecastFetchClient: DependencyKey {
+    
     static let liveValue = Self(
         fetch: { cityName in
             let coordinates: [CoordinateData]? = await fetchData(url: "https://api.openweathermap.org/geo/1.0/direct?q=\(cityName)&limit=1&appid=a066f4a8bf5b6cb3985b36c2d99574b8")
@@ -14,8 +16,7 @@ extension WeatherForecastFetchClient: DependencyKey {
             let data: WeatherForecastData? = await fetchData(url: "https://api.openweathermap.org/data/2.5/forecast?lat=\(coordinates[0].latitude)&lon=\(coordinates[0].longitude)&appid=a066f4a8bf5b6cb3985b36c2d99574b8")
             guard let data else { return [] }
             
-            let filteredData = filterForecastData(data)
-            return filteredData
+            return filterForecastData(data)
         }
     )
     
@@ -24,25 +25,23 @@ extension WeatherForecastFetchClient: DependencyKey {
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
-            let decoder = JSONDecoder()
-            return try decoder.decode(T.self, from: data)
+            return try JSONDecoder().decode(T.self, from: data)
         } catch {
             print(error.localizedDescription)
+            return nil
         }
-        
-        return nil
     }
     
     private static func filterForecastData(_ data: WeatherForecastData) -> [DayForecast] {
-        let res = data.list
+        return data.list
             .filter { $0.dtTxt.hasSuffix("15:00:00") }
-            .map { DayForecast(from: $0) }
-        return res
+            .map(DayForecast.init)
     }
 }
 
 extension DependencyValues {
-    var forecast: WeatherForecastFetchClient {
+    
+    var weatherForecast: WeatherForecastFetchClient {
         get { self[WeatherForecastFetchClient.self] }
         set { self[WeatherForecastFetchClient.self] = newValue }
     }
