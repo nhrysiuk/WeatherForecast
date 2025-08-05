@@ -11,13 +11,14 @@ extension WeatherForecastFetchClient: DependencyKey {
     static let liveValue = Self(
         fetch: { cityName in
             let coordinates: [CoordinateData]? = await fetchData(url: "https://api.openweathermap.org/geo/1.0/direct?q=\(cityName)&limit=1&appid=a066f4a8bf5b6cb3985b36c2d99574b8")
-            guard let coordinates else { return [] }
+            guard let coordinates, let coordinate = coordinates.first else { return [] }
             
-                //TODO: add name of the city for which the forecast was found
-            let data: WeatherForecastData? = await fetchData(url: "https://api.openweathermap.org/data/2.5/forecast?lat=\(coordinates[0].latitude)&lon=\(coordinates[0].longitude)&appid=a066f4a8bf5b6cb3985b36c2d99574b8")
+            let data: WeatherForecastData? = await fetchData(url: "https://api.openweathermap.org/data/2.5/forecast?lat=\(coordinate.latitude)&lon=\(coordinate.longitude)&appid=a066f4a8bf5b6cb3985b36c2d99574b8")
             guard let data else { return [] }
             
-            return filterForecastData(data)
+            var filteredData = processForecastData(data, cityName: coordinate.name)
+            
+            return filteredData
         }
     )
     
@@ -37,10 +38,10 @@ extension WeatherForecastFetchClient: DependencyKey {
         }
     }
     
-    private static func filterForecastData(_ data: WeatherForecastData) -> [DayForecast] {
+    private static func processForecastData(_ data: WeatherForecastData, cityName: String) -> [DayForecast] {
         return data.list
             .filter { $0.dtTxt.hasSuffix("15:00:00") }
-            .map(DayForecast.init)
+            .map { DayForecast(from: $0, cityName: cityName)}
     }
 }
 

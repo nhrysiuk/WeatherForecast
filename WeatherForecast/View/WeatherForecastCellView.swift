@@ -22,8 +22,3 @@ struct WeatherForecastCellView: View {
         }
     }
 }
-
-
-#Preview {
-    WeatherForecastCellView(dayForecast: DayForecast(date: "15 Aug", temperature: 13.5, imageName: "sun.max.fill"))
-}

@@ -5,13 +5,14 @@ struct WeatherForecastFeature {
     
     @ObservableState
     struct State {
-        
         var weatherForecastState = WeatherForecastState.emptyInput
         var forecasts = [DayForecast]()
-        var isForecastLoading = false
         var hasForecasts: Bool {
             !forecasts.isEmpty
         }
+        var cityName: String?
+        
+        var isForecastLoading = false
     }
     
     enum Action {
@@ -39,11 +40,11 @@ struct WeatherForecastFeature {
             case let .forecastResponse(forecasts):
                 state.isForecastLoading = false
                 state.forecasts = forecasts
-                if forecasts.isEmpty {
+                guard let firstForecast = forecasts.first else {
                     return .send(.incorrectCityName(WeatherForecastState.incorrectInput))
                 }
                 state.weatherForecastState = .forecastIsShown
-                
+                state.cityName = firstForecast.cityName
                 return .none
                 
             case let .incorrectCityName(reason):
