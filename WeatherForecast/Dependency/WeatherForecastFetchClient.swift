@@ -13,6 +13,7 @@ extension WeatherForecastFetchClient: DependencyKey {
             let coordinates: [CoordinateData]? = await fetchData(url: "https://api.openweathermap.org/geo/1.0/direct?q=\(cityName)&limit=1&appid=a066f4a8bf5b6cb3985b36c2d99574b8")
             guard let coordinates else { return [] }
             
+                //TODO: add name of the city for which the forecast was found
             let data: WeatherForecastData? = await fetchData(url: "https://api.openweathermap.org/data/2.5/forecast?lat=\(coordinates[0].latitude)&lon=\(coordinates[0].longitude)&appid=a066f4a8bf5b6cb3985b36c2d99574b8")
             guard let data else { return [] }
             
@@ -25,7 +26,11 @@ extension WeatherForecastFetchClient: DependencyKey {
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
-            return try JSONDecoder().decode(T.self, from: data)
+            let decodedValue = try JSONDecoder().decode(T.self, from: data)
+            if let arr = decodedValue as? [Any], arr.isEmpty {
+                return nil
+            }
+            return decodedValue
         } catch {
             print(error.localizedDescription)
             return nil

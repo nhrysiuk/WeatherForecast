@@ -6,8 +6,8 @@ struct WeatherForecastFeature {
     @ObservableState
     struct State {
         
+        var weatherForecastState = WeatherForecastState.emptyInput
         var forecasts = [DayForecast]()
-        var isShowingForecast = false
         var isForecastLoading = false
         var hasForecasts: Bool {
             !forecasts.isEmpty
@@ -15,7 +15,8 @@ struct WeatherForecastFeature {
     }
     
     enum Action {
-        case searchButtonTapped(String)
+        case cityNameEntered(String)
+        case incorrectCityName(WeatherForecastState)
         case forecastResponse([DayForecast])
     }
     
@@ -24,8 +25,11 @@ struct WeatherForecastFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case let .searchButtonTapped(cityName):
+            case let .cityNameEntered(cityName):
                 state.forecasts = []
+                guard isCityNameValid(cityName) else {
+                    return .send(.incorrectCityName(WeatherForecastState.emptyInput))
+                }
                 state.isForecastLoading = true
                 
                 return .run { send in
@@ -35,10 +39,21 @@ struct WeatherForecastFeature {
             case let .forecastResponse(forecasts):
                 state.isForecastLoading = false
                 state.forecasts = forecasts
-                state.isShowingForecast = true
+                if forecasts.isEmpty {
+                    return .send(.incorrectCityName(WeatherForecastState.incorrectInput))
+                }
+                state.weatherForecastState = .forecastIsShown
                 
+                return .none
+                
+            case let .incorrectCityName(reason):
+                state.weatherForecastState = reason
                 return .none
             }
         }
+    }
+    
+    func isCityNameValid(_ name: String) -> Bool {
+        return !name.isEmpty && !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }

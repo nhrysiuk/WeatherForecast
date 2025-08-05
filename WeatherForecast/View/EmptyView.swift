@@ -2,16 +2,16 @@ import SwiftUI
 
 struct EmptyView: View {
     
-    var messageText: String
+    var message: (String, String)
     
     var body: some View {
         VStack(spacing: 16) {
             Spacer()
-            Image(systemName: "exclamationmark.warninglight.fill")
+            Image(systemName: message.1)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150, height: 150)
-            Text(messageText)
+            Text(message.0)
                 .font(.headline)
                 .padding(.horizontal)
                 .multilineTextAlignment(.center)

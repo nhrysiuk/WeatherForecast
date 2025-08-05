@@ -11,14 +11,9 @@ struct WeatherForecastView: View {
         HStack {
             TextField("Enter city name...", text: self.$cityName)
                 .textFieldStyle(.roundedBorder)
-            Button {
-                store.send(.searchButtonTapped(cityName))
-            } label: {
-                Image(systemName: "magnifyingglass.circle.fill")
-                    .resizable()
-                    .frame(width: 35, height: 35)
-                    .tint(Color.brown)
-            }
+                .onChange(of: cityName) {
+                    store.send(.cityNameEntered(cityName))
+                }
         }
         .padding()
         
@@ -33,7 +28,7 @@ struct WeatherForecastView: View {
             .padding()
         }
         else {
-            EmptyView(messageText: EmptyViewNames.noForecastFound)
+            EmptyView(message: store.weatherForecastState.message)
         }
     }
 }

@@ -7,7 +7,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6EDB5DA4-6DB2-4E7A-946C-4A704858713A"
+            uuid = "67EE2F15-6BC3-41EE-9B56-E42144920C4F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -18,36 +18,6 @@
             endingLineNumber = "16"
             landmarkName = "liveValue"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "6EDB5DA4-6DB2-4E7A-946C-4A704858713A - 1948518256233beb"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for closure #1 (Swift.String) async -&gt; Swift.Array&lt;WeatherForecast.DayForecast&gt; in variable initialization expression of static WeatherForecast.WeatherForecastFetchClient.liveValue : WeatherForecast.WeatherForecastFetchClient"
-                  moduleName = "WeatherForecast.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/anastasiia.hrysiuk/Desktop/practice/tca/WeatherForecast/WeatherForecast/Dependency/WeatherForecastFetchClient.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16">
-               </Location>
-               <Location
-                  uuid = "6EDB5DA4-6DB2-4E7A-946C-4A704858713A - 48b7d014f5257fa5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for closure #1 (Swift.String) async -&gt; Swift.Array&lt;WeatherForecast.DayForecast&gt; in variable initialization expression of static WeatherForecast.WeatherForecastFetchClient.liveValue : WeatherForecast.WeatherForecastFetchClient"
-                  moduleName = "WeatherForecast.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/anastasiia.hrysiuk/Desktop/practice/tca/WeatherForecast/WeatherForecast/Dependency/WeatherForecastFetchClient.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
