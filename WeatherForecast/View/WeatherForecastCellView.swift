@@ -2,17 +2,15 @@ import SwiftUI
 
 struct WeatherForecastCellView: View {
     
-    var dayForecast: DayForecast
+    let dayForecast: DayForecast
     
     var body: some View {
-        HStack {
-            Image(systemName: dayForecast.imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 75, height: 75)
+        HStack(spacing: 16) {
+            weatherIcon
             
             Spacer()
-            VStack(spacing: 16) {
+            
+            VStack(spacing: 8) {
                 Text(dayForecast.date)
                     .font(.caption)
                 Text("\(dayForecast.temperature)°C")
@@ -20,5 +18,16 @@ struct WeatherForecastCellView: View {
                     .fontWeight(.semibold)
             }
         }
+        .padding()
+        .background(Color(.systemGray6))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+    
+    private var weatherIcon: some View {
+        Image(systemName: dayForecast.imageName)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 60, height: 60)
+            .foregroundStyle(.blue)
     }
 }

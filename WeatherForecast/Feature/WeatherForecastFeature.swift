@@ -5,19 +5,18 @@ struct WeatherForecastFeature {
     
     @ObservableState
     struct State {
-        var weatherForecastState = WeatherForecastState.emptyInput
-        var forecasts = [DayForecast]()
+        var weatherForecastError: WeatherForecastState? = .emptyInput
+        var forecasts: [DayForecast] = []
+        var cityName: String?
+        var isForecastLoading = false
+        
         var hasForecasts: Bool {
             !forecasts.isEmpty
         }
-        var cityName: String?
-        
-        var isForecastLoading = false
     }
     
     enum Action {
         case cityNameEntered(String)
-        case incorrectCityName(WeatherForecastState)
         case forecastResponse([DayForecast])
     }
     
@@ -27,34 +26,45 @@ struct WeatherForecastFeature {
         Reduce { state, action in
             switch action {
             case let .cityNameEntered(cityName):
-                state.forecasts = []
+                state.clearForecasts()
+                
                 guard isCityNameValid(cityName) else {
-                    return .send(.incorrectCityName(WeatherForecastState.emptyInput))
+                    state.weatherForecastError = .emptyInput
+                    return .none
                 }
+                
                 state.isForecastLoading = true
                 
                 return .run { send in
-                    try await send(.forecastResponse(weatherForecast.fetch(cityName)))
+                    let forecasts = try await weatherForecast.fetch(cityName)
+                    await send(.forecastResponse(forecasts))
                 }
                 
             case let .forecastResponse(forecasts):
                 state.isForecastLoading = false
                 state.forecasts = forecasts
-                guard let firstForecast = forecasts.first else {
-                    return .send(.incorrectCityName(WeatherForecastState.incorrectInput))
-                }
-                state.weatherForecastState = .forecastIsShown
-                state.cityName = firstForecast.cityName
-                return .none
                 
-            case let .incorrectCityName(reason):
-                state.weatherForecastState = reason
+                if forecasts.isEmpty {
+                    state.weatherForecastError = .incorrectInput
+                } else {
+                    state.cityName = forecasts.first?.cityName
+                }
+                
                 return .none
             }
         }
     }
     
-    func isCityNameValid(_ name: String) -> Bool {
-        return !name.isEmpty && !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    private func isCityNameValid(_ name: String) -> Bool {
+        !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+}
+
+// MARK: - State Extensions
+extension WeatherForecastFeature.State {
+    mutating func clearForecasts() {
+        forecasts = []
+        cityName = nil
+        weatherForecastError = nil
     }
 }
