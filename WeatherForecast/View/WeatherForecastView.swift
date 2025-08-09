@@ -10,13 +10,12 @@ struct WeatherForecastView: View {
         VStack(spacing: 20) {
             searchField
             
-            if store.isForecastLoading {
-                ProgressView()
-                    .frame(maxHeight: .infinity)
+            if store.isLoading {
+                loadingView
             } else if store.hasForecasts {
                 ForecastListView(forecasts: store.forecasts, cityName: store.cityName)
-            } else if let message = store.weatherForecastError?.message {
-                EmptyView(message: message)
+            } else if store.shouldShowEmptyState, let error = store.weatherForecastError {
+                EmptyView(message: error.uiMessage)
             }
         }
         .padding()
@@ -28,6 +27,16 @@ struct WeatherForecastView: View {
             .onChange(of: searchText) { _, newValue in
                 store.send(.cityNameEntered(newValue))
             }
+    }
+    
+    private var loadingView: some View {
+        VStack(spacing: 16) {
+            ProgressView()
+            Text("Fetching weather data...")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxHeight: .infinity)
     }
 }
 
