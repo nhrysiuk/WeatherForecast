@@ -10,5 +10,4 @@ struct CoordinateData: Codable, Equatable {
         case longitude = "lon"
         case name
     }
-    
 }

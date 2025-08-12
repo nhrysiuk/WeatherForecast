@@ -15,7 +15,8 @@ struct WeatherForecastView: View {
             } else if store.hasForecasts {
                 ForecastListView(forecasts: store.forecasts, cityName: store.cityName)
             } else if store.shouldShowEmptyState, let error = store.weatherForecastError {
-                EmptyView(message: error.uiMessage)
+                let message = error.uiMessage
+                ContentUnavailableView(message.0, systemImage: message.1)
             }
         }
         .padding()
