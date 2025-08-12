@@ -4,7 +4,7 @@ import ComposableArchitecture
 struct WeatherForecastFeature {
     
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var weatherForecastError: WeatherForecastError? = .emptyInput
         var forecasts: [DayForecast] = []
         var cityName: String?
@@ -25,6 +25,7 @@ struct WeatherForecastFeature {
         case forecastResponse(Result<[DayForecast], WeatherForecastError>)
     }
     
+    @Dependency(\.continuousClock) var clock
     @Dependency(\.weatherForecast) var weatherForecast
     
     private static let searchFlowCancellationID = "search-flow"
@@ -48,7 +49,7 @@ struct WeatherForecastFeature {
                 
                 state.isLoading = true
                 return .run { send in
-                    try await Task.sleep(for: .seconds(0.4))
+                    try await clock.sleep(for: .seconds(0.4))
                     await send(.searchDebounced(cityName))
                 }
                 .cancellable(id: Self.searchFlowCancellationID, cancelInFlight: true)

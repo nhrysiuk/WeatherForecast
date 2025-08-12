@@ -21,4 +21,13 @@ struct DayForecast: Hashable, Identifiable {
             "cloud.rain.fill"
         }
     }
+    
+    init(cityName: String, date: String, temperature: Int, imageName: String) {
+        self.cityName = cityName
+        self.date = date
+        self.temperature = temperature
+        self.imageName = imageName
+    }
+    
+    static let mockDays: [DayForecast] = [DayForecast(cityName: "Kyiv", date: "05.05.2001", temperature: 23, imageName: "sun.max.fill")]
 }
