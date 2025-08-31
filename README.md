@@ -8,7 +8,7 @@ WeatherForecastApp is a SwiftUI application built using The Composable Architect
 
 ## Screenshots
 <p float="left">
-  <img src="https://github.com/user-attachments/assets/36074c6f-128e-4254-a28f-3d9a55765bed" width="300" />
-  <img src="https://github.com/user-attachments/assets/8883727e-fa27-4f90-941b-d634b16fb86c" width="300" />
-  <img src="https://github.com/user-attachments/assets/f3b2c6f6-7052-4aa1-986d-436b3da0ab97" width="300" />
+  <img src="https://github.com/user-attachments/assets/36074c6f-128e-4254-a28f-3d9a55765bed" width="200" />
+  <img src="https://github.com/user-attachments/assets/8883727e-fa27-4f90-941b-d634b16fb86c" width="200" />
+  <img src="https://github.com/user-attachments/assets/f3b2c6f6-7052-4aa1-986d-436b3da0ab97" width="200" />
 </p>
