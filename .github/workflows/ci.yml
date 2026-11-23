@@ -40,3 +40,31 @@ jobs:
             -derivedDataPath DerivedData \
             CODE_SIGNING_ALLOWED=NO \
             -quiet
+
+      - name: Pick iOS Simulator
+        id: simulator
+        run: |
+          # Newest iPhone on the newest installed iOS runtime.
+          udid=$(xcrun simctl list devices available --json | jq -r '
+            [.devices | to_entries[]
+              | select(.key | test("SimRuntime\\.iOS-"))
+              | (.key | capture("iOS-(?<major>[0-9]+)-(?<minor>[0-9]+)")) as $v
+              | .value[]
+              | select(.name | startswith("iPhone"))
+              | {udid, version: [($v.major | tonumber), ($v.minor | tonumber)]}]
+            | sort_by(.version) | last | .udid // empty')
+          if [ -z "$udid" ]; then
+            echo "::error::No iPhone simulator available"
+            exit 1
+          fi
+          echo "udid=$udid" >> "$GITHUB_OUTPUT"
+
+      - name: Test Modules package
+        working-directory: Modules
+        run: |
+          xcodebuild test \
+            -scheme Modules \
+            -destination "platform=iOS Simulator,id=${{ steps.simulator.outputs.udid }}" \
+            -derivedDataPath ../DerivedData/Modules \
+            CODE_SIGNING_ALLOWED=NO \
+            -quiet
