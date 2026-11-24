@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Coordinate: Hashable, Codable, Sendable {
+public struct Coordinate: Hashable, Sendable {
     public let latitude: Double
     public let longitude: Double
 
@@ -10,7 +10,7 @@ public struct Coordinate: Hashable, Codable, Sendable {
     }
 }
 
-public struct City: Identifiable, Hashable, Codable, Sendable {
+public struct City: Identifiable, Hashable, Sendable {
     public let id: Int
     public let name: String
     public let region: String?
