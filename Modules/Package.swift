@@ -21,5 +21,6 @@ let package = Package(
         .target(name: "Domain", swiftSettings: swiftSettings),
         .target(name: "Networking", swiftSettings: swiftSettings),
         .testTarget(name: "DomainTests", dependencies: ["Domain"], swiftSettings: swiftSettings),
+        .testTarget(name: "NetworkingTests", dependencies: ["Networking"], swiftSettings: swiftSettings),
     ]
 )
