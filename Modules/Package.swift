@@ -31,5 +31,6 @@ let package = Package(
             dependencies: ["OpenMeteo", "Domain", "Networking"],
             swiftSettings: swiftSettings
         ),
+        .testTarget(name: "PersistenceTests", dependencies: ["Persistence", "Domain"], swiftSettings: swiftSettings),
     ]
 )
