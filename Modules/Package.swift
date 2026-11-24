@@ -14,6 +14,7 @@ let uiSwiftSettings = swiftSettings + [
 
 let package = Package(
     name: "Modules",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v17),
     ],
@@ -29,7 +30,7 @@ let package = Package(
         .target(name: "Networking", swiftSettings: swiftSettings),
         .target(name: "OpenMeteo", dependencies: ["Domain", "Networking"], swiftSettings: swiftSettings),
         .target(name: "Persistence", dependencies: ["Domain"], swiftSettings: swiftSettings),
-        .target(name: "DesignSystem", swiftSettings: uiSwiftSettings),
+        .target(name: "DesignSystem", resources: [.process("Resources")], swiftSettings: uiSwiftSettings),
         .testTarget(name: "DomainTests", dependencies: ["Domain"], swiftSettings: swiftSettings),
         .testTarget(name: "NetworkingTests", dependencies: ["Networking"], swiftSettings: swiftSettings),
         .testTarget(
