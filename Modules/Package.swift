@@ -2,6 +2,12 @@
 
 import PackageDescription
 
+let swiftSettings: [SwiftSetting] = [
+    .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+    .enableUpcomingFeature("InferIsolatedConformances"),
+    .enableUpcomingFeature("MemberImportVisibility"),
+]
+
 let package = Package(
     name: "Modules",
     platforms: [
@@ -9,9 +15,11 @@ let package = Package(
     ],
     products: [
         .library(name: "Domain", targets: ["Domain"]),
+        .library(name: "Networking", targets: ["Networking"]),
     ],
     targets: [
-        .target(name: "Domain"),
-        .testTarget(name: "DomainTests", dependencies: ["Domain"]),
+        .target(name: "Domain", swiftSettings: swiftSettings),
+        .target(name: "Networking", swiftSettings: swiftSettings),
+        .testTarget(name: "DomainTests", dependencies: ["Domain"], swiftSettings: swiftSettings),
     ]
 )
