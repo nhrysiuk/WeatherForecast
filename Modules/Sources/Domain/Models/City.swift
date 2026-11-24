@@ -14,7 +14,7 @@ public struct City: Identifiable, Hashable, Codable, Sendable {
     public let id: Int
     public let name: String
     public let region: String?
-    public let country: String?
+    public let countryCode: String?
     public let coordinate: Coordinate
     public let timeZone: TimeZone
 
@@ -22,14 +22,14 @@ public struct City: Identifiable, Hashable, Codable, Sendable {
         id: Int,
         name: String,
         region: String?,
-        country: String?,
+        countryCode: String?,
         coordinate: Coordinate,
         timeZone: TimeZone
     ) {
         self.id = id
         self.name = name
         self.region = region
-        self.country = country
+        self.countryCode = countryCode
         self.coordinate = coordinate
         self.timeZone = timeZone
     }
