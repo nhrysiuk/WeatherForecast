@@ -40,3 +40,28 @@ jobs:
             -derivedDataPath DerivedData \
             CODE_SIGNING_ALLOWED=NO \
             -quiet
+
+      - name: Pick iOS Simulator
+        id: simulator
+        working-directory: Modules
+        run: |
+          udid=$(xcodebuild -scheme Modules -showdestinations 2>/dev/null \
+            | grep 'platform:iOS Simulator' \
+            | grep 'name:iPhone' \
+            | sed -E 's/.*id:([^,]+), OS:([^,]+),.*/\2 \1/' \
+            | sort -V | tail -1 | cut -d' ' -f2 || true)
+          if [ -z "$udid" ]; then
+            echo "::error::No iPhone simulator available"
+            exit 1
+          fi
+          echo "udid=$udid" >> "$GITHUB_OUTPUT"
+
+      - name: Test Modules package
+        working-directory: Modules
+        run: |
+          xcodebuild test \
+            -scheme Modules \
+            -destination "platform=iOS Simulator,id=${{ steps.simulator.outputs.udid }}" \
+            -derivedDataPath ../DerivedData/Modules \
+            CODE_SIGNING_ALLOWED=NO \
+            -quiet
