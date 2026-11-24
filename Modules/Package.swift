@@ -24,5 +24,10 @@ let package = Package(
         .target(name: "OpenMeteo", dependencies: ["Domain", "Networking"], swiftSettings: swiftSettings),
         .testTarget(name: "DomainTests", dependencies: ["Domain"], swiftSettings: swiftSettings),
         .testTarget(name: "NetworkingTests", dependencies: ["Networking"], swiftSettings: swiftSettings),
+        .testTarget(
+            name: "OpenMeteoTests",
+            dependencies: ["OpenMeteo", "Domain", "Networking"],
+            swiftSettings: swiftSettings
+        ),
     ]
 )
