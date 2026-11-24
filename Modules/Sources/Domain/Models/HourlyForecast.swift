@@ -6,8 +6,8 @@ public struct HourlyForecast: Equatable, Sendable {
     public let precipitationProbability: Int
     public let condition: WeatherCondition
     public let isDay: Bool
-    public let cape: Double
-    public let liftedIndex: Double
+    public let cape: Double?
+    public let liftedIndex: Double?
 
     public init(
         time: Date,
@@ -15,8 +15,8 @@ public struct HourlyForecast: Equatable, Sendable {
         precipitationProbability: Int,
         condition: WeatherCondition,
         isDay: Bool,
-        cape: Double,
-        liftedIndex: Double
+        cape: Double?,
+        liftedIndex: Double?
     ) {
         self.time = time
         self.temperature = temperature

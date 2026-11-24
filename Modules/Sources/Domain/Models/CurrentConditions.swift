@@ -8,7 +8,7 @@ public struct CurrentConditions: Equatable, Sendable {
     public let relativeHumidity: Int
     public let pressure: Measurement<UnitPressure>
     public let visibility: Measurement<UnitLength>
-    public let uvIndex: Double
+    public let uvIndex: Double?
     public let wind: Wind
     public let condition: WeatherCondition
     public let isDay: Bool
@@ -21,7 +21,7 @@ public struct CurrentConditions: Equatable, Sendable {
         relativeHumidity: Int,
         pressure: Measurement<UnitPressure>,
         visibility: Measurement<UnitLength>,
-        uvIndex: Double,
+        uvIndex: Double?,
         wind: Wind,
         condition: WeatherCondition,
         isDay: Bool

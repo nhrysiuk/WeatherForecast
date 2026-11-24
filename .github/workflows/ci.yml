@@ -45,7 +45,7 @@ jobs:
         id: simulator
         working-directory: Modules
         run: |
-          udid=$(xcodebuild -scheme Modules -showdestinations 2>/dev/null \
+          udid=$(xcodebuild -scheme Modules-Package -showdestinations 2>/dev/null \
             | grep 'platform:iOS Simulator' \
             | grep 'name:iPhone' \
             | sed -E 's/.*id:([^,]+), OS:([^,]+),.*/\2 \1/' \
@@ -60,7 +60,7 @@ jobs:
         working-directory: Modules
         run: |
           xcodebuild test \
-            -scheme Modules \
+            -scheme Modules-Package \
             -destination "platform=iOS Simulator,id=${{ steps.simulator.outputs.udid }}" \
             -derivedDataPath ../DerivedData/Modules \
             CODE_SIGNING_ALLOWED=NO \
