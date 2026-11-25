@@ -25,6 +25,8 @@ public final class HomeModel {
     public private(set) var history = SearchHistory()
     public private(set) var historyState = HistoryState.loading
     public private(set) var searchState = SearchState.idle
+    public private(set) var summaries: [Coordinate: WeatherSummary] = [:]
+    public private(set) var summariesFailed = false
 
     public var isHistoryFull: Bool {
         history.cities.count >= SearchHistory.limit
@@ -32,15 +34,18 @@ public final class HomeModel {
 
     private let citySearch: any CitySearching
     private let historyStore: any SearchHistoryStoring
+    private let forecastProvider: any ForecastProviding
     private let debounce: Duration
 
     public init(
         citySearch: any CitySearching,
         historyStore: any SearchHistoryStoring,
+        forecastProvider: any ForecastProviding,
         debounce: Duration = .milliseconds(300)
     ) {
         self.citySearch = citySearch
         self.historyStore = historyStore
+        self.forecastProvider = forecastProvider
         self.debounce = debounce
     }
 
@@ -53,6 +58,19 @@ public final class HomeModel {
         } catch {
             logger.error("Loading history failed: \(String(describing: error), privacy: .public)")
             historyState = .failed
+        }
+    }
+
+    public func loadSummaries() async {
+        let missing = history.cities.map(\.coordinate).filter { summaries[$0] == nil }
+        guard !missing.isEmpty else { return }
+        summariesFailed = false
+        do {
+            summaries.merge(try await forecastProvider.summaries(for: missing)) { $1 }
+        } catch is CancellationError {
+        } catch {
+            logger.error("Loading weather summaries failed: \(String(describing: error), privacy: .public)")
+            summariesFailed = true
         }
     }
 

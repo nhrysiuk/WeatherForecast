@@ -41,7 +41,7 @@ let package = Package(
         ),
         .target(
             name: "HomeFeature",
-            dependencies: ["Domain", "DesignSystem"],
+            dependencies: ["Domain", "DesignSystem", "WeatherUI"],
             resources: [.process("Resources")],
             swiftSettings: uiSwiftSettings
         ),

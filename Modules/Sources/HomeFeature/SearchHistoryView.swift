@@ -8,7 +8,7 @@ struct SearchHistoryView: View {
     var body: some View {
         switch model.historyState {
         case .loading:
-            CityListSkeleton()
+            CityListSkeleton(showsWeather: true)
         case .failed:
             ErrorStateView(.unavailable) {
                 Task { await model.loadHistory() }
@@ -17,7 +17,11 @@ struct SearchHistoryView: View {
             List {
                 Section {
                     ForEach(model.history.cities) { city in
-                        CityRow(city: city)
+                        HistoryRow(
+                            city: city,
+                            summary: model.summaries[city.coordinate],
+                            showsSkeleton: !model.summariesFailed
+                        )
                     }
                     .onDelete { offsets in
                         Task { await model.remove(atOffsets: offsets) }
@@ -25,6 +29,9 @@ struct SearchHistoryView: View {
                 } header: {
                     Text(.recentSearchesHeader)
                 }
+            }
+            .task(id: model.history.cities.map(\.coordinate)) {
+                await model.loadSummaries()
             }
         }
     }

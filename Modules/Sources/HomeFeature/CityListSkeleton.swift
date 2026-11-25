@@ -13,9 +13,15 @@ struct CityListSkeleton: View {
         timeZone: .gmt
     )
 
+    var showsWeather = false
+
     var body: some View {
         List(0..<Self.rowCount, id: \.self) { _ in
-            CityRow(city: Self.placeholder)
+            if showsWeather {
+                HistoryRow(city: Self.placeholder, summary: WeatherSummaryView.placeholder, showsSkeleton: true)
+            } else {
+                CityRow(city: Self.placeholder)
+            }
         }
         .skeleton(true)
     }

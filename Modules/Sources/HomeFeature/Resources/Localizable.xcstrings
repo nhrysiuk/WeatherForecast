@@ -37,6 +37,24 @@
         }
       }
     },
+    "highLowTemperature" : {
+      "comment" : "Today's highest and lowest temperature next to a city. The first value is the high, the second the low.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "H:%1$@ L:%2$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maks.: %1$@ Min.: %2$@"
+          }
+        }
+      }
+    },
     "historyFullMessage" : {
       "comment" : "Shown above search results when the saved list has reached its limit.",
       "extractionState" : "manual",
