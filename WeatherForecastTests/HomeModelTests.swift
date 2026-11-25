@@ -134,7 +134,7 @@ struct HomeModelTests {
     }
 
     @Test func clearsFailureWhenWeatherLoads() async {
-        let provider = StubForecastProvider(summary: summary, failures: 1)
+        let provider = StubForecastProvider(summary: summary, failures: [.offline])
         let model = makeModel(store: InMemoryHistoryStore(SearchHistory(cities: [gdansk])), forecast: provider)
         await model.loadHistory()
 

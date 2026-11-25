@@ -1,28 +1,34 @@
 import Domain
 
 actor StubForecastProvider: ForecastProviding {
-    struct UnexpectedCall: Error {}
-
+    private let forecast: Forecast?
     private let summary: WeatherSummary?
-    private var remainingFailures: Int
+    private var failures: [WeatherError]
+    private(set) var requestedForecasts: [Coordinate] = []
     private(set) var requestedCoordinates: [[Coordinate]] = []
 
-    init(summary: WeatherSummary? = nil, failures: Int = 0) {
+    init(forecast: Forecast? = nil, summary: WeatherSummary? = nil, failures: [WeatherError] = []) {
+        self.forecast = forecast
         self.summary = summary
-        remainingFailures = failures
+        self.failures = failures
     }
 
     func forecast(for coordinate: Coordinate) throws -> Forecast {
-        throw UnexpectedCall()
+        requestedForecasts.append(coordinate)
+        try failIfNeeded()
+        guard let forecast else { throw WeatherError.server }
+        return forecast
     }
 
     func summaries(for coordinates: [Coordinate]) throws -> [Coordinate: WeatherSummary] {
         requestedCoordinates.append(coordinates)
-        guard remainingFailures == 0 else {
-            remainingFailures -= 1
-            throw WeatherError.offline
-        }
+        try failIfNeeded()
         guard let summary else { return [:] }
         return Dictionary(uniqueKeysWithValues: coordinates.map { ($0, summary) })
+    }
+
+    private func failIfNeeded() throws {
+        guard !failures.isEmpty else { return }
+        throw failures.removeFirst()
     }
 }
