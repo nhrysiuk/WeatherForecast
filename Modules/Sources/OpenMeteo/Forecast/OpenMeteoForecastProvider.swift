@@ -30,11 +30,11 @@ public struct OpenMeteoForecastProvider: ForecastProviding {
     }
 
     public func summaries(for coordinates: [Coordinate]) async throws -> [Coordinate: WeatherSummary] {
-        var seen = Set<Coordinate>()
-        let uniqueCoordinates = coordinates.filter { seen.insert($0).inserted }
-        guard !uniqueCoordinates.isEmpty else {
+        guard !coordinates.isEmpty else {
             return [:]
         }
+        var seen = Set<Coordinate>()
+        let uniqueCoordinates = coordinates.filter { seen.insert($0).inserted }
         let url = Self.forecastURL.appending(queryItems: [
             URLQueryItem(name: "latitude", value: uniqueCoordinates.map { String($0.latitude) }.joined(separator: ",")),
             URLQueryItem(name: "longitude", value: uniqueCoordinates.map { String($0.longitude) }.joined(separator: ",")),

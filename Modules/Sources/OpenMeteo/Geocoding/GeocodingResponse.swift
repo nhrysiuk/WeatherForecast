@@ -7,7 +7,6 @@ struct GeocodingResponse: Decodable {
         let name: String
         let latitude: Double
         let longitude: Double
-        let timezone: String?
         let countryCode: String?
         let region: String?
         let featureCode: String?
@@ -17,7 +16,6 @@ struct GeocodingResponse: Decodable {
             case name
             case latitude
             case longitude
-            case timezone
             case countryCode = "country_code"
             case region = "admin1"
             case featureCode = "feature_code"
@@ -31,7 +29,7 @@ extension GeocodingResponse.Place {
     private static let formerSettlementCodes: Set<String> = ["PPLCH", "PPLH", "PPLQ", "PPLW"]
 
     var city: City? {
-        guard isInhabitedPlace, let timezone, let timeZone = TimeZone(identifier: timezone) else {
+        guard isInhabitedPlace else {
             return nil
         }
         return City(
@@ -39,8 +37,7 @@ extension GeocodingResponse.Place {
             name: name,
             region: region,
             countryCode: countryCode,
-            coordinate: Coordinate(latitude: latitude, longitude: longitude),
-            timeZone: timeZone
+            coordinate: Coordinate(latitude: latitude, longitude: longitude)
         )
     }
 

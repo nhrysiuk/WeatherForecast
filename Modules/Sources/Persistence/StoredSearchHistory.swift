@@ -9,7 +9,6 @@ struct StoredSearchHistory: Codable {
         let countryCode: String?
         let latitude: Double
         let longitude: Double
-        let timeZone: String
     }
 
     private struct Header: Decodable {
@@ -39,8 +38,8 @@ struct StoredSearchHistory: Codable {
         try JSONEncoder().encode(self)
     }
 
-    func makeHistory() throws -> SearchHistory {
-        SearchHistory(cities: try cities.map { try $0.makeCity() })
+    func makeHistory() -> SearchHistory {
+        SearchHistory(cities: cities.map { $0.makeCity() })
     }
 }
 
@@ -52,20 +51,15 @@ extension StoredSearchHistory.StoredCity {
         countryCode = city.countryCode
         latitude = city.coordinate.latitude
         longitude = city.coordinate.longitude
-        timeZone = city.timeZone.identifier
     }
 
-    func makeCity() throws -> City {
-        guard let zone = TimeZone(identifier: timeZone) else {
-            throw SearchHistoryStoreError.unknownTimeZone(timeZone)
-        }
-        return City(
+    func makeCity() -> City {
+        City(
             id: id,
             name: name,
             region: region,
             countryCode: countryCode,
-            coordinate: Coordinate(latitude: latitude, longitude: longitude),
-            timeZone: zone
+            coordinate: Coordinate(latitude: latitude, longitude: longitude)
         )
     }
 }

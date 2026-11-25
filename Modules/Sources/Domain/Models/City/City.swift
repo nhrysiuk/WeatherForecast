@@ -1,5 +1,3 @@
-import Foundation
-
 public struct Coordinate: Hashable, Sendable {
     public let latitude: Double
     public let longitude: Double
@@ -16,21 +14,18 @@ public struct City: Identifiable, Hashable, Sendable {
     public let region: String?
     public let countryCode: String?
     public let coordinate: Coordinate
-    public let timeZone: TimeZone
 
     public init(
         id: Int,
         name: String,
         region: String?,
         countryCode: String?,
-        coordinate: Coordinate,
-        timeZone: TimeZone
+        coordinate: Coordinate
     ) {
         self.id = id
         self.name = name
         self.region = region
         self.countryCode = countryCode
         self.coordinate = coordinate
-        self.timeZone = timeZone
     }
 }

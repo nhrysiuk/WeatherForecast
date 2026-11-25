@@ -8,8 +8,7 @@ struct CityListSkeleton: View {
         name: "Placeholder",
         region: "Placeholder region",
         countryCode: nil,
-        coordinate: Coordinate(latitude: 0, longitude: 0),
-        timeZone: .gmt
+        coordinate: Coordinate(latitude: 0, longitude: 0)
     )
 
     var showsWeather = false

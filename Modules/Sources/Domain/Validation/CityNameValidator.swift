@@ -6,12 +6,10 @@ public enum CityNameValidationError: Error, Equatable {
     case containsDisallowedCharacters
 }
 
-public struct CityNameValidator: Sendable {
-    public static let minimumLetterCount = 2
+public enum CityNameValidator {
+    private static let minimumLetterCount = 2
 
-    public init() {}
-
-    public func validate(_ input: String) throws(CityNameValidationError) -> String {
+    public static func validate(_ input: String) throws(CityNameValidationError) -> String {
         let name = input
             .split(whereSeparator: \.isWhitespace)
             .joined(separator: " ")

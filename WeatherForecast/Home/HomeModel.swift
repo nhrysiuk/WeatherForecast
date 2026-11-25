@@ -77,7 +77,7 @@ final class HomeModel {
     func search() async {
         let name: String
         do throws(CityNameValidationError) {
-            name = try CityNameValidator().validate(query)
+            name = try CityNameValidator.validate(query)
         } catch .tooShort {
             searchState = .idle
             return

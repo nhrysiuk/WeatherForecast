@@ -54,32 +54,16 @@ struct OpenMeteoCitySearchTests {
                 name: "Kraków",
                 region: "Lesser Poland",
                 countryCode: "PL",
-                coordinate: Coordinate(latitude: 50.06143, longitude: 19.93658),
-                timeZone: TimeZone(identifier: "Europe/Warsaw")!
+                coordinate: Coordinate(latitude: 50.06143, longitude: 19.93658)
             ),
             City(
                 id: 702550,
                 name: "Lviv",
                 region: nil,
                 countryCode: nil,
-                coordinate: Coordinate(latitude: 49.83826, longitude: 24.02324),
-                timeZone: TimeZone(identifier: "Europe/Kyiv")!
+                coordinate: Coordinate(latitude: 49.83826, longitude: 24.02324)
             ),
         ])
-    }
-
-    @Test func skipsPlacesWithoutKnownTimeZone() async throws {
-        let httpClient = StubHTTPClient(json: """
-        {
-          "results": [
-            { "id": 1, "name": "Nowhere", "latitude": 0, "longitude": 0 },
-            { "id": 2, "name": "Elsewhere", "latitude": 0, "longitude": 0, "timezone": "Mars/Olympus" }
-          ]
-        }
-        """)
-        let search = OpenMeteoCitySearch(httpClient: httpClient, locale: Locale(identifier: "en_US"))
-
-        #expect(try await search.searchCities(named: "Nowhere").isEmpty)
     }
 
     @Test func keepsOnlyInhabitedPlaces() async throws {

@@ -82,21 +82,6 @@ final class FileSearchHistoryStoreTests {
         }
     }
 
-    @Test func rejectsUnknownTimeZone() async throws {
-        try write("""
-        {
-          "version": 1,
-          "cities": [
-            { "id": 1, "name": "Nowhere", "latitude": 0, "longitude": 0, "timeZone": "Mars/Olympus" }
-          ]
-        }
-        """)
-
-        await #expect(throws: SearchHistoryStoreError.unknownTimeZone("Mars/Olympus")) {
-            try await store.load()
-        }
-    }
-
     @Test func rejectsUnreadableFile() async throws {
         try write("not json")
 
@@ -120,8 +105,7 @@ private extension City {
         name: "Gdańsk",
         region: "Pomerania",
         countryCode: "PL",
-        coordinate: Coordinate(latitude: 54.35205, longitude: 18.64637),
-        timeZone: TimeZone(identifier: "Europe/Warsaw")!
+        coordinate: Coordinate(latitude: 54.35205, longitude: 18.64637)
     )
 
     static let lviv = City(
@@ -129,7 +113,6 @@ private extension City {
         name: "Lviv",
         region: nil,
         countryCode: nil,
-        coordinate: Coordinate(latitude: 49.83826, longitude: 24.02324),
-        timeZone: TimeZone(identifier: "Europe/Kyiv")!
+        coordinate: Coordinate(latitude: 49.83826, longitude: 24.02324)
     )
 }
