@@ -1,7 +1,7 @@
 import Domain
 import SwiftUI
 
-public struct HomeView: View {
+struct HomeView: View {
     private struct SearchRequest: Equatable {
         let query: String
         let attempt: Int
@@ -10,11 +10,11 @@ public struct HomeView: View {
     @Bindable private var model: HomeModel
     @State private var searchAttempt = 0
 
-    public init(model: HomeModel) {
+    init(model: HomeModel) {
         self.model = model
     }
 
-    public var body: some View {
+    var body: some View {
         HomeContent(model: model, retrySearch: { searchAttempt += 1 })
             .navigationTitle(Text(.homeTitle))
             .searchable(text: $model.query, prompt: Text(.searchPrompt))

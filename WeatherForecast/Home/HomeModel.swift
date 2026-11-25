@@ -6,14 +6,14 @@ import os
 private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "WeatherForecast", category: "Home")
 
 @Observable
-public final class HomeModel {
-    public enum HistoryState: Equatable {
+final class HomeModel {
+    enum HistoryState: Equatable {
         case loading
         case loaded
         case failed
     }
 
-    public enum SearchState: Equatable {
+    enum SearchState: Equatable {
         case idle
         case invalid(CityNameValidationError)
         case loading
@@ -21,14 +21,14 @@ public final class HomeModel {
         case failed(WeatherError)
     }
 
-    public var query = ""
-    public private(set) var history = SearchHistory()
-    public private(set) var historyState = HistoryState.loading
-    public private(set) var searchState = SearchState.idle
-    public private(set) var summaries: [Coordinate: WeatherSummary] = [:]
-    public private(set) var summariesFailed = false
+    var query = ""
+    private(set) var history = SearchHistory()
+    private(set) var historyState = HistoryState.loading
+    private(set) var searchState = SearchState.idle
+    private(set) var summaries: [Coordinate: WeatherSummary] = [:]
+    private(set) var summariesFailed = false
 
-    public var isHistoryFull: Bool {
+    var isHistoryFull: Bool {
         history.cities.count >= SearchHistory.limit
     }
 
@@ -37,7 +37,7 @@ public final class HomeModel {
     private let forecastProvider: any ForecastProviding
     private let debounce: Duration
 
-    public init(
+    init(
         citySearch: any CitySearching,
         historyStore: any SearchHistoryStoring,
         forecastProvider: any ForecastProviding,
@@ -49,7 +49,7 @@ public final class HomeModel {
         self.debounce = debounce
     }
 
-    public func loadHistory() async {
+    func loadHistory() async {
         guard historyState != .loaded else { return }
         historyState = .loading
         do {
@@ -61,7 +61,7 @@ public final class HomeModel {
         }
     }
 
-    public func loadSummaries() async {
+    func loadSummaries() async {
         let missing = history.cities.map(\.coordinate).filter { summaries[$0] == nil }
         guard !missing.isEmpty else { return }
         summariesFailed = false
@@ -74,7 +74,7 @@ public final class HomeModel {
         }
     }
 
-    public func search() async {
+    func search() async {
         let name: String
         do throws(CityNameValidationError) {
             name = try CityNameValidator().validate(query)
@@ -96,15 +96,15 @@ public final class HomeModel {
         }
     }
 
-    public func save(_ city: City) async {
+    func save(_ city: City) async {
         await updateHistory { _ = $0.record(city) }
     }
 
-    public func remove(atOffsets offsets: IndexSet) async {
+    func remove(atOffsets offsets: IndexSet) async {
         await updateHistory { $0.remove(atOffsets: offsets) }
     }
 
-    public func move(fromOffsets source: IndexSet, toOffset destination: Int) async {
+    func move(fromOffsets source: IndexSet, toOffset destination: Int) async {
         await updateHistory { $0.move(fromOffsets: source, toOffset: destination) }
     }
 

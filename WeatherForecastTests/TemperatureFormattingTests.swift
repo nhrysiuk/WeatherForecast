@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-import WeatherUI
+@testable import WeatherForecast
 
 struct TemperatureFormattingTests {
     @Test(arguments: [

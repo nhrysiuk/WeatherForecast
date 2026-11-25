@@ -1,9 +1,8 @@
 import Domain
 import Foundation
-import HomeFeature
 import Testing
+@testable import WeatherForecast
 
-@MainActor
 struct HomeModelTests {
     private let gdansk = City.stub(id: 1, name: "Gdańsk")
     private let wroclaw = City.stub(id: 2, name: "Wrocław", coordinate: Coordinate(latitude: 51.1, longitude: 17.03))

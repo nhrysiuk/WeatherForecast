@@ -2,7 +2,7 @@ import Domain
 import Foundation
 
 extension City {
-    static func stub(
+    nonisolated static func stub(
         id: Int,
         name: String = "City",
         coordinate: Coordinate = Coordinate(latitude: 54.35, longitude: 18.65)

@@ -1,7 +1,7 @@
 import SwiftUI
 
-public struct ErrorStateView: View {
-    public enum Reason: Sendable {
+struct ErrorStateView: View {
+    enum Reason: Sendable {
         case offline
         case unavailable
     }
@@ -9,12 +9,12 @@ public struct ErrorStateView: View {
     private let reason: Reason
     private let retry: () -> Void
 
-    public init(_ reason: Reason, retry: @escaping () -> Void) {
+    init(_ reason: Reason, retry: @escaping () -> Void) {
         self.reason = reason
         self.retry = retry
     }
 
-    public var body: some View {
+    var body: some View {
         ContentUnavailableView {
             Label {
                 title

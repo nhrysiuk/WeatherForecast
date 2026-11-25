@@ -1,6 +1,5 @@
 import Domain
 import SwiftUI
-import WeatherUI
 
 struct WeatherSummaryView: View {
     static let placeholder = WeatherSummary(
