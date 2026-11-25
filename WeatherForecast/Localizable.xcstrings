@@ -289,6 +289,24 @@
         }
       }
     },
+    "hourlyForecastTitle" : {
+      "comment" : "Title of the section with the forecast for the next hours.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hourly Forecast"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prognoza godzinowa"
+          }
+        }
+      }
+    },
     "invalidNameCharacters" : {
       "comment" : "Shown when the typed city name contains characters other than letters, spaces and hyphens.",
       "extractionState" : "manual",
@@ -339,6 +357,24 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sprawdź nazwę miasta"
+          }
+        }
+      }
+    },
+    "now" : {
+      "comment" : "Label for the current hour in the hourly forecast.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Now"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teraz"
           }
         }
       }
@@ -411,6 +447,24 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Szukaj miasta"
+          }
+        }
+      }
+    },
+    "thunderstormRisk" : {
+      "comment" : "Explains the lightning symbol shown on hours with a risk of thunderstorms.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thunderstorm risk"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ryzyko burzy"
           }
         }
       }

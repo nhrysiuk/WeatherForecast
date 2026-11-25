@@ -21,20 +21,24 @@ struct ForecastView: View {
     private var content: some View {
         switch model.state {
         case .loading:
-            ScrollView {
-                CurrentWeatherView.placeholder
-                    .padding()
-            }
-            .skeleton(true)
+            layout(current: .placeholder, hourly: .placeholder)
+                .skeleton(true)
         case .loaded(let forecast):
-            ScrollView {
-                CurrentWeatherView(forecast: forecast)
-                    .padding()
-            }
+            layout(current: CurrentWeatherView(forecast: forecast), hourly: HourlyForecastView(forecast: forecast))
         case .failed(let error):
             ErrorStateView(ErrorStateView.Reason(error)) {
                 loadAttempt += 1
             }
+        }
+    }
+
+    private func layout(current: CurrentWeatherView, hourly: HourlyForecastView) -> some View {
+        ScrollView {
+            VStack(spacing: 24) {
+                current
+                hourly
+            }
+            .padding()
         }
     }
 }
