@@ -6,7 +6,14 @@ import Testing
 @MainActor
 struct HomeModelTests {
     private let gdansk = City.stub(id: 1, name: "Gdańsk")
-    private let wroclaw = City.stub(id: 2, name: "Wrocław")
+    private let wroclaw = City.stub(id: 2, name: "Wrocław", coordinate: Coordinate(latitude: 51.1, longitude: 17.03))
+    private let summary = WeatherSummary(
+        temperature: Measurement(value: 3, unit: .celsius),
+        minTemperature: Measurement(value: -1, unit: .celsius),
+        maxTemperature: Measurement(value: 4, unit: .celsius),
+        condition: .overcast,
+        isDay: true
+    )
 
     @Test func loadsSavedHistory() async {
         let model = makeModel(store: InMemoryHistoryStore(SearchHistory(cities: [gdansk])))
@@ -112,10 +119,39 @@ struct HomeModelTests {
         #expect(await store.savedHistories == [SearchHistory(cities: [wroclaw])])
     }
 
+    @Test func loadsWeatherOnlyForNewCities() async {
+        let provider = StubForecastProvider(summary: summary)
+        let model = makeModel(store: InMemoryHistoryStore(SearchHistory(cities: [wroclaw])), forecast: provider)
+        await model.loadHistory()
+        await model.loadSummaries()
+
+        await model.save(gdansk)
+        await model.loadSummaries()
+        await model.remove(atOffsets: [0])
+        await model.loadSummaries()
+
+        #expect(await provider.requestedCoordinates == [[wroclaw.coordinate], [gdansk.coordinate]])
+        #expect(model.summaries == [wroclaw.coordinate: summary, gdansk.coordinate: summary])
+    }
+
+    @Test func clearsFailureWhenWeatherLoads() async {
+        let provider = StubForecastProvider(summary: summary, failures: 1)
+        let model = makeModel(store: InMemoryHistoryStore(SearchHistory(cities: [gdansk])), forecast: provider)
+        await model.loadHistory()
+
+        await model.loadSummaries()
+        #expect(model.summariesFailed)
+
+        await model.loadSummaries()
+        #expect(!model.summariesFailed)
+        #expect(model.summaries == [gdansk.coordinate: summary])
+    }
+
     private func makeModel(
         search: StubCitySearch = StubCitySearch { _ in [] },
-        store: InMemoryHistoryStore = InMemoryHistoryStore()
+        store: InMemoryHistoryStore = InMemoryHistoryStore(),
+        forecast: StubForecastProvider = StubForecastProvider()
     ) -> HomeModel {
-        HomeModel(citySearch: search, historyStore: store, debounce: .zero)
+        HomeModel(citySearch: search, historyStore: store, forecastProvider: forecast, debounce: .zero)
     }
 }
