@@ -39,7 +39,12 @@ let package = Package(
             resources: [.process("Resources")],
             swiftSettings: swiftSettings
         ),
-        .target(name: "HomeFeature", dependencies: ["Domain"], swiftSettings: uiSwiftSettings),
+        .target(
+            name: "HomeFeature",
+            dependencies: ["Domain", "DesignSystem"],
+            resources: [.process("Resources")],
+            swiftSettings: uiSwiftSettings
+        ),
         .testTarget(name: "DomainTests", dependencies: ["Domain"], swiftSettings: swiftSettings),
         .testTarget(name: "NetworkingTests", dependencies: ["Networking"], swiftSettings: swiftSettings),
         .testTarget(
