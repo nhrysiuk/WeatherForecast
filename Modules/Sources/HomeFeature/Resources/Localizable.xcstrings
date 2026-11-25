@@ -1,0 +1,186 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "findCityMessage" : {
+      "comment" : "Message shown on the home screen before the user starts searching.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for a city to see its weather."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyszukaj miasto, aby zobaczyć pogodę."
+          }
+        }
+      }
+    },
+    "findCityTitle" : {
+      "comment" : "Title shown on the home screen before the user starts searching.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find a City"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Znajdź miasto"
+          }
+        }
+      }
+    },
+    "highLowTemperature" : {
+      "comment" : "Today's highest and lowest temperature next to a city. The first value is the high, the second the low.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "H:%1$@ L:%2$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maks.: %1$@ Min.: %2$@"
+          }
+        }
+      }
+    },
+    "historyFullMessage" : {
+      "comment" : "Shown above search results when the saved list has reached its limit.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your list is full. Remove a city to add a new one."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lista jest pełna. Usuń miasto, aby dodać nowe."
+          }
+        }
+      }
+    },
+    "homeTitle" : {
+      "comment" : "Title of the home screen.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weather"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pogoda"
+          }
+        }
+      }
+    },
+    "invalidNameCharacters" : {
+      "comment" : "Shown when the typed city name contains characters other than letters, spaces and hyphens.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use only letters, spaces and hyphens."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Używaj tylko liter, spacji i łączników."
+          }
+        }
+      }
+    },
+    "invalidNameDigits" : {
+      "comment" : "Shown when the typed city name contains digits.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "City names can’t contain digits."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nazwa miasta nie może zawierać cyfr."
+          }
+        }
+      }
+    },
+    "invalidNameTitle" : {
+      "comment" : "Title shown when the typed city name is invalid.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check the City Name"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprawdź nazwę miasta"
+          }
+        }
+      }
+    },
+    "recentSearchesHeader" : {
+      "comment" : "Header above the list of cities the user searched for.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recent Searches"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ostatnie wyszukiwania"
+          }
+        }
+      }
+    },
+    "searchPrompt" : {
+      "comment" : "Placeholder in the city search field.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for a city"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Szukaj miasta"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -6,6 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1AE33FD430B64461003937F2 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE33FD330B64461003937F2 /* DesignSystem */; };
+		1AE33FD630B64461003937F2 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE33FD530B64461003937F2 /* Domain */; };
+		1AE33FD830B64461003937F2 /* OpenMeteo in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE33FD730B64461003937F2 /* OpenMeteo */; };
+		1AE33FDA30B64461003937F2 /* Persistence in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE33FD930B64461003937F2 /* Persistence */; };
+		1AE33FDC30B64461003937F2 /* HomeFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE33FDB30B64461003937F2 /* HomeFeature */; };
+		1AE33FDE30B64461003937F2 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE33FDD30B64461003937F2 /* Networking */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		000000000000000000000120 /* WeatherForecast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherForecast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -22,6 +31,12 @@
 		A2C4FE3AD8CE4807B2013F7B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
+				1AE33FDA30B64461003937F2 /* Persistence in Frameworks */,
+				1AE33FD630B64461003937F2 /* Domain in Frameworks */,
+				1AE33FD430B64461003937F2 /* DesignSystem in Frameworks */,
+				1AE33FDC30B64461003937F2 /* HomeFeature in Frameworks */,
+				1AE33FDE30B64461003937F2 /* Networking in Frameworks */,
+				1AE33FD830B64461003937F2 /* OpenMeteo in Frameworks */,
 			);
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -60,6 +75,14 @@
 				8A9966D02DA6CEBBF2C8E7AC /* WeatherForecast */,
 			);
 			name = WeatherForecast;
+			packageProductDependencies = (
+				1AE33FD330B64461003937F2 /* DesignSystem */,
+				1AE33FDB30B64461003937F2 /* HomeFeature */,
+				1AE33FDD30B64461003937F2 /* Networking */,
+				1AE33FD530B64461003937F2 /* Domain */,
+				1AE33FD730B64461003937F2 /* OpenMeteo */,
+				1AE33FD930B64461003937F2 /* Persistence */,
+			);
 			productName = WeatherForecast;
 			productReference = 000000000000000000000120 /* WeatherForecast.app */;
 			productType = "com.apple.product-type.application";
@@ -80,9 +103,13 @@
 			knownRegions = (
 				Base,
 				en,
+				pl,
 			);
 			mainGroup = A141984236A95477CA25C708;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				1AE33FD230B64461003937F2 /* XCLocalSwiftPackageReference "Modules" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D879FFAF55EE65DC160C3862 /* Products */;
 			projectDirPath = "";
@@ -135,7 +162,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "devplaceholder.$(PROJECT_UNIQUE_VALUE:identifier).$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nhrysiukpersonalteam.WeatherForecast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
@@ -310,7 +337,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "devplaceholder.$(PROJECT_UNIQUE_VALUE:identifier).$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nhrysiukpersonalteam.WeatherForecast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
@@ -346,6 +373,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		1AE33FD230B64461003937F2 /* XCLocalSwiftPackageReference "Modules" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Modules;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1AE33FD330B64461003937F2 /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignSystem;
+		};
+		1AE33FD530B64461003937F2 /* Domain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Domain;
+		};
+		1AE33FD730B64461003937F2 /* OpenMeteo */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OpenMeteo;
+		};
+		1AE33FD930B64461003937F2 /* Persistence */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Persistence;
+		};
+		1AE33FDB30B64461003937F2 /* HomeFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HomeFeature;
+		};
+		1AE33FDD30B64461003937F2 /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Networking;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0EE4C1E8C63E03579437E773 /* Project object */;
 	validationLevel = 1;
