@@ -25,6 +25,7 @@ let package = Package(
         .library(name: "Persistence", targets: ["Persistence"]),
         .library(name: "DesignSystem", targets: ["DesignSystem"]),
         .library(name: "WeatherUI", targets: ["WeatherUI"]),
+        .library(name: "HomeFeature", targets: ["HomeFeature"]),
     ],
     targets: [
         .target(name: "Domain", swiftSettings: swiftSettings),
@@ -38,6 +39,7 @@ let package = Package(
             resources: [.process("Resources")],
             swiftSettings: swiftSettings
         ),
+        .target(name: "HomeFeature", dependencies: ["Domain"], swiftSettings: uiSwiftSettings),
         .testTarget(name: "DomainTests", dependencies: ["Domain"], swiftSettings: swiftSettings),
         .testTarget(name: "NetworkingTests", dependencies: ["Networking"], swiftSettings: swiftSettings),
         .testTarget(
@@ -47,5 +49,6 @@ let package = Package(
         ),
         .testTarget(name: "PersistenceTests", dependencies: ["Persistence", "Domain"], swiftSettings: swiftSettings),
         .testTarget(name: "WeatherUITests", dependencies: ["WeatherUI"], swiftSettings: swiftSettings),
+        .testTarget(name: "HomeFeatureTests", dependencies: ["HomeFeature", "Domain"], swiftSettings: swiftSettings),
     ]
 )
