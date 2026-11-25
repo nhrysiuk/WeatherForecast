@@ -236,7 +236,7 @@
       }
     },
     "highLowTemperature" : {
-      "comment" : "Today's highest and lowest temperature next to a city. The first value is the high, the second the low.",
+      "comment" : "Today's highest and lowest temperature. The first value is the high, the second the low.",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {

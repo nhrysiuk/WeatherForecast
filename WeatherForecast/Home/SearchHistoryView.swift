@@ -16,11 +16,13 @@ struct SearchHistoryView: View {
             List {
                 Section {
                     ForEach(model.history.cities) { city in
-                        HistoryRow(
-                            city: city,
-                            summary: model.summaries[city.coordinate],
-                            showsSkeleton: !model.summariesFailed
-                        )
+                        NavigationLink(value: city) {
+                            HistoryRow(
+                                city: city,
+                                summary: model.summaries[city.coordinate],
+                                showsSkeleton: !model.summariesFailed
+                            )
+                        }
                     }
                     .onDelete { offsets in
                         Task { await model.remove(atOffsets: offsets) }

@@ -24,6 +24,9 @@ struct HomeView: View {
                     DefaultToolbarItem(kind: .search, placement: .bottomBar)
                 }
             }
+            .navigationDestination(for: City.self) { city in
+                ForecastView(city: city, forecastProvider: model.forecastProvider)
+            }
             .task {
                 await model.loadHistory()
             }

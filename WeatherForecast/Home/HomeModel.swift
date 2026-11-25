@@ -34,7 +34,7 @@ final class HomeModel {
 
     private let citySearch: any CitySearching
     private let historyStore: any SearchHistoryStoring
-    private let forecastProvider: any ForecastProviding
+    let forecastProvider: any ForecastProviding
     private let debounce: Duration
 
     init(
