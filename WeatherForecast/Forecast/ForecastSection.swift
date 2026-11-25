@@ -18,7 +18,7 @@ struct ForecastSection<Content: View>: View {
             content
         }
         .padding()
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(.fill.quaternary, in: .rect(cornerRadius: 16))
     }
 }

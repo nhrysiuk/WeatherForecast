@@ -11,7 +11,7 @@ struct ForecastView: View {
 
     var body: some View {
         content
-            .navigationTitle(model.city.name)
+            .navigationBarTitleDisplayMode(.inline)
             .task(id: loadAttempt) {
                 await model.load()
             }
@@ -21,10 +21,21 @@ struct ForecastView: View {
     private var content: some View {
         switch model.state {
         case .loading:
-            layout(current: .placeholder, hourly: .placeholder)
-                .skeleton(true)
+            layout(
+                current: .placeholder,
+                hourly: .placeholder,
+                daily: .placeholder,
+                details: .placeholder,
+                isLoading: true
+            )
         case .loaded(let forecast):
-            layout(current: CurrentWeatherView(forecast: forecast), hourly: HourlyForecastView(forecast: forecast))
+            layout(
+                current: CurrentWeatherView(forecast: forecast),
+                hourly: HourlyForecastView(forecast: forecast),
+                daily: DailyForecastView(forecast: forecast),
+                details: ForecastDetailsView(forecast: forecast),
+                isLoading: false
+            )
         case .failed(let error):
             ErrorStateView(ErrorStateView.Reason(error)) {
                 loadAttempt += 1
@@ -32,11 +43,26 @@ struct ForecastView: View {
         }
     }
 
-    private func layout(current: CurrentWeatherView, hourly: HourlyForecastView) -> some View {
+    private func layout(
+        current: CurrentWeatherView,
+        hourly: HourlyForecastView,
+        daily: DailyForecastView,
+        details: ForecastDetailsView,
+        isLoading: Bool
+    ) -> some View {
         ScrollView {
-            VStack(spacing: 24) {
-                current
-                hourly
+            VStack(spacing: 4) {
+                Text(model.city.name)
+                    .font(.title2.weight(.medium))
+                    .multilineTextAlignment(.center)
+                VStack(spacing: 16) {
+                    current
+                        .padding(.bottom, 8)
+                    hourly
+                    daily
+                    details
+                }
+                .skeleton(isLoading)
             }
             .padding()
         }

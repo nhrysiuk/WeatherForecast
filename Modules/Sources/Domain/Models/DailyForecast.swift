@@ -8,7 +8,6 @@ public struct DailyForecast: Equatable, Sendable {
     public let condition: WeatherCondition
     public let sunrise: Date?
     public let sunset: Date?
-    public let moonPhase: Double
 
     public init(
         date: Date,
@@ -17,8 +16,7 @@ public struct DailyForecast: Equatable, Sendable {
         precipitationProbability: Int,
         condition: WeatherCondition,
         sunrise: Date?,
-        sunset: Date?,
-        moonPhase: Double
+        sunset: Date?
     ) {
         self.date = date
         self.minTemperature = minTemperature
@@ -27,6 +25,5 @@ public struct DailyForecast: Equatable, Sendable {
         self.condition = condition
         self.sunrise = sunrise
         self.sunset = sunset
-        self.moonPhase = moonPhase
     }
 }

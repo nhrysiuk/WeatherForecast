@@ -26,10 +26,8 @@ enum ForecastJSON {
             "interval": 900,
             "temperature_2m": 3.2,
             "apparent_temperature": -1.3,
-            "cloud_cover": 100,
             "precipitation_probability": 38,
             "relative_humidity_2m": 89,
-            "pressure_msl": 1020.8,
             "visibility": 7140.0,
             "uv_index": \(json(uvIndex)),
             "wind_speed_10m": 18.4,
@@ -54,8 +52,7 @@ enum ForecastJSON {
             "temperature_2m_min": [1.1],
             "precipitation_probability_max": [100],
             "sunrise": [\(sunrise)],
-            "sunset": [\(sunset)],
-            "moon_phase": [0.494]
+            "sunset": [\(sunset)]
           }
         }
         """

@@ -13,8 +13,7 @@ struct CurrentWeatherView: View {
             precipitationProbability: 0,
             condition: .clear,
             sunrise: nil,
-            sunset: nil,
-            moonPhase: 0
+            sunset: nil
         )
     )
 
@@ -26,7 +25,7 @@ struct CurrentWeatherView: View {
     var body: some View {
         VStack(spacing: 4) {
             Text(temperature.formattedTemperature())
-                .font(.system(size: 80, weight: .thin))
+                .font(.system(size: 80, weight: .semibold))
             Label {
                 Text(condition.localizedName)
             } icon: {
@@ -39,7 +38,7 @@ struct CurrentWeatherView: View {
                     today.maxTemperature.formattedTemperature(),
                     today.minTemperature.formattedTemperature()
                 ))
-                .font(.title3)
+                .font(.callout)
                 .foregroundStyle(.secondary)
             }
         }

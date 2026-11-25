@@ -24,8 +24,8 @@ struct OpenMeteoForecastProviderTests {
         #expect(components.queryItems?.first { $0.name == "wind_speed_unit" }?.value == "kmh")
         #expect(components.queryItems?.first { $0.name == "forecast_days" }?.value == "7")
         #expect(components.queryItems?.first { $0.name == "current" }?.value == [
-            "temperature_2m", "apparent_temperature", "cloud_cover", "precipitation_probability",
-            "relative_humidity_2m", "pressure_msl", "visibility", "uv_index", "wind_speed_10m",
+            "temperature_2m", "apparent_temperature", "precipitation_probability",
+            "relative_humidity_2m", "visibility", "uv_index", "wind_speed_10m",
             "wind_gusts_10m", "wind_direction_10m", "weather_code", "is_day",
         ].joined(separator: ","))
         #expect(components.queryItems?.first { $0.name == "hourly" }?.value == [
@@ -33,7 +33,7 @@ struct OpenMeteoForecastProviderTests {
         ].joined(separator: ","))
         #expect(components.queryItems?.first { $0.name == "daily" }?.value == [
             "weather_code", "temperature_2m_max", "temperature_2m_min", "precipitation_probability_max",
-            "sunrise", "sunset", "moon_phase",
+            "sunrise", "sunset",
         ].joined(separator: ","))
     }
 
@@ -47,10 +47,8 @@ struct OpenMeteoForecastProviderTests {
             current: CurrentConditions(
                 temperature: Measurement(value: 3.2, unit: .celsius),
                 apparentTemperature: Measurement(value: -1.3, unit: .celsius),
-                cloudCover: 100,
                 precipitationProbability: 38,
                 relativeHumidity: 89,
-                pressure: Measurement(value: 1020.8, unit: .hectopascals),
                 visibility: Measurement(value: 7140, unit: .meters),
                 uvIndex: 0,
                 wind: Wind(
@@ -80,8 +78,7 @@ struct OpenMeteoForecastProviderTests {
                     precipitationProbability: 100,
                     condition: .drizzle,
                     sunrise: Date(timeIntervalSince1970: TimeInterval(ForecastJSON.sunrise)),
-                    sunset: Date(timeIntervalSince1970: TimeInterval(ForecastJSON.sunset)),
-                    moonPhase: 0.494
+                    sunset: Date(timeIntervalSince1970: TimeInterval(ForecastJSON.sunset))
                 ),
             ]
         ))

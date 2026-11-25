@@ -2,8 +2,6 @@ import Domain
 import SwiftUI
 
 struct HourlyForecastView: View {
-    private static let shownPrecipitationProbability = 20
-
     static let placeholder = HourlyForecastView(
         hours: (0..<24).map { offset in
             HourlyForecast(
@@ -35,20 +33,7 @@ struct HourlyForecastView: View {
             }
             .scrollIndicators(.hidden)
             .environment(\.timeZone, timeZone)
-            if hours.contains(where: \.hasThunderstormRisk) {
-                Label(.thunderstormRisk, systemImage: "bolt.fill")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-            }
         }
-    }
-
-    private static func showsPrecipitation(_ hour: HourlyForecast) -> Bool {
-        hour.precipitationProbability >= shownPrecipitationProbability
-    }
-
-    private static func hasExtras(_ hour: HourlyForecast) -> Bool {
-        hour.hasThunderstormRisk || showsPrecipitation(hour)
     }
 
     private func temperature(of hour: HourlyForecast, isNow: Bool) -> Measurement<UnitTemperature> {
@@ -56,6 +41,15 @@ struct HourlyForecastView: View {
             return hour.temperature
         }
         return currentTemperature
+    }
+
+    private var hasPrecipitationRow: Bool {
+        hours.contains { PrecipitationChanceText.isShown($0.precipitationProbability) }
+    }
+
+    private func symbolName(for hour: HourlyForecast) -> String {
+        let condition: WeatherCondition = hour.hasThunderstormRisk ? .thunderstorm : hour.condition
+        return condition.symbolName(isDay: hour.isDay)
     }
 
     private func column(for hour: HourlyForecast, isNow: Bool) -> some View {
@@ -69,22 +63,18 @@ struct HourlyForecastView: View {
             }
             .font(.footnote.weight(.medium))
             .foregroundStyle(.secondary)
+            VStack(spacing: 2) {
+                Image(systemName: symbolName(for: hour))
+                    .symbolRenderingMode(.hierarchical)
+                    .font(.title3)
+                    .frame(height: 28)
+                PrecipitationChanceText(probability: hour.precipitationProbability)
+                    .font(.caption.weight(.semibold))
+                    .frame(height: 16)
+            }
+            .frame(height: hasPrecipitationRow ? 46 : 28)
             Text(temperature(of: hour, isNow: isNow).formattedTemperature())
                 .font(.title3)
-            if hours.contains(where: Self.hasExtras) {
-                HStack(spacing: 2) {
-                    if hour.hasThunderstormRisk {
-                        Image(systemName: "bolt.fill")
-                            .foregroundStyle(.yellow)
-                    }
-                    if Self.showsPrecipitation(hour) {
-                        Text(Double(hour.precipitationProbability) / 100, format: .percent)
-                            .foregroundStyle(.blue)
-                    }
-                }
-                .font(.caption.weight(.semibold))
-                .frame(minHeight: 16)
-            }
         }
         .monospacedDigit()
     }

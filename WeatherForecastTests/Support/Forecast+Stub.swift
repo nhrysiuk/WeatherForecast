@@ -8,10 +8,8 @@ extension Forecast {
             current: CurrentConditions(
                 temperature: Measurement(value: temperature, unit: .celsius),
                 apparentTemperature: Measurement(value: temperature - 2, unit: .celsius),
-                cloudCover: 90,
                 precipitationProbability: 10,
                 relativeHumidity: 80,
-                pressure: Measurement(value: 1012, unit: .hectopascals),
                 visibility: Measurement(value: 20, unit: .kilometers),
                 uvIndex: 1,
                 wind: Wind(
