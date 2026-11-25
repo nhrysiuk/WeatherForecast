@@ -1,0 +1,474 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "conditionClear" : {
+      "comment" : "Name of a weather condition.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bezchmurnie"
+          }
+        }
+      }
+    },
+    "conditionDrizzle" : {
+      "comment" : "Name of a weather condition.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drizzle"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mżawka"
+          }
+        }
+      }
+    },
+    "conditionFog" : {
+      "comment" : "Name of a weather condition.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fog"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mgła"
+          }
+        }
+      }
+    },
+    "conditionFreezingRain" : {
+      "comment" : "Name of a weather condition.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Freezing Rain"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marznący deszcz"
+          }
+        }
+      }
+    },
+    "conditionOvercast" : {
+      "comment" : "Name of a weather condition.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloudy"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pochmurno"
+          }
+        }
+      }
+    },
+    "conditionPartlyCloudy" : {
+      "comment" : "Name of a weather condition.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partly Cloudy"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Częściowe zachmurzenie"
+          }
+        }
+      }
+    },
+    "conditionRain" : {
+      "comment" : "Name of a weather condition.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rain"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deszcz"
+          }
+        }
+      }
+    },
+    "conditionShowers" : {
+      "comment" : "Name of a weather condition.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Showers"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Przelotny deszcz"
+          }
+        }
+      }
+    },
+    "conditionSnow" : {
+      "comment" : "Name of a weather condition.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snow"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Śnieg"
+          }
+        }
+      }
+    },
+    "conditionThunderstorm" : {
+      "comment" : "Name of a weather condition.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thunderstorm"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Burza"
+          }
+        }
+      }
+    },
+    "conditionUnknown" : {
+      "comment" : "Name of a weather condition.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nieznane"
+          }
+        }
+      }
+    },
+    "findCityMessage" : {
+      "comment" : "Message shown on the home screen before the user starts searching.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for a city to see its weather."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyszukaj miasto, aby zobaczyć pogodę."
+          }
+        }
+      }
+    },
+    "findCityTitle" : {
+      "comment" : "Title shown on the home screen before the user starts searching.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find a City"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Znajdź miasto"
+          }
+        }
+      }
+    },
+    "highLowTemperature" : {
+      "comment" : "Today's highest and lowest temperature next to a city. The first value is the high, the second the low.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "H:%1$@ L:%2$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maks.: %1$@ Min.: %2$@"
+          }
+        }
+      }
+    },
+    "historyFullMessage" : {
+      "comment" : "Shown above search results when the saved list has reached its limit.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your list is full. Remove a city to add a new one."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lista jest pełna. Usuń miasto, aby dodać nowe."
+          }
+        }
+      }
+    },
+    "homeTitle" : {
+      "comment" : "Title of the home screen.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weather"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pogoda"
+          }
+        }
+      }
+    },
+    "invalidNameCharacters" : {
+      "comment" : "Shown when the typed city name contains characters other than letters, spaces and hyphens.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use only letters, spaces and hyphens."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Używaj tylko liter, spacji i łączników."
+          }
+        }
+      }
+    },
+    "invalidNameDigits" : {
+      "comment" : "Shown when the typed city name contains digits.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "City names can’t contain digits."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nazwa miasta nie może zawierać cyfr."
+          }
+        }
+      }
+    },
+    "invalidNameTitle" : {
+      "comment" : "Title shown when the typed city name is invalid.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check the City Name"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprawdź nazwę miasta"
+          }
+        }
+      }
+    },
+    "offlineMessage" : {
+      "comment" : "Message shown when the device is offline.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check your connection and try again."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprawdź połączenie i spróbuj ponownie."
+          }
+        }
+      }
+    },
+    "offlineTitle" : {
+      "comment" : "Title shown when the device is offline.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Internet Connection"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brak połączenia z internetem"
+          }
+        }
+      }
+    },
+    "recentSearchesHeader" : {
+      "comment" : "Header above the list of cities the user searched for.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recent Searches"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ostatnie wyszukiwania"
+          }
+        }
+      }
+    },
+    "searchPrompt" : {
+      "comment" : "Placeholder in the city search field.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for a city"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Szukaj miasta"
+          }
+        }
+      }
+    },
+    "tryAgain" : {
+      "comment" : "Button that repeats a failed request.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try Again"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spróbuj ponownie"
+          }
+        }
+      }
+    },
+    "unavailableMessage" : {
+      "comment" : "Message shown when data couldn’t be loaded from the server.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The data couldn’t be loaded. Try again in a moment."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie udało się wczytać danych. Spróbuj ponownie za chwilę."
+          }
+        }
+      }
+    },
+    "unavailableTitle" : {
+      "comment" : "Title shown when data couldn’t be loaded from the server.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something Went Wrong"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coś poszło nie tak"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

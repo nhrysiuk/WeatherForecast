@@ -2,7 +2,7 @@ import Domain
 import Foundation
 
 extension WeatherCondition {
-    public func symbolName(isDay: Bool) -> String {
+    func symbolName(isDay: Bool) -> String {
         switch self {
         case .clear:
             isDay ? "sun.max.fill" : "moon.stars.fill"
@@ -29,7 +29,7 @@ extension WeatherCondition {
         }
     }
 
-    public var localizedName: LocalizedStringResource {
+    var localizedName: LocalizedStringResource {
         switch self {
         case .clear:
             .conditionClear

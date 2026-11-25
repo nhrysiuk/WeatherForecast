@@ -31,16 +31,6 @@ jobs:
       - name: Show Xcode version
         run: xcodebuild -version
 
-      - name: Build for iOS Simulator
-        run: |
-          xcodebuild build \
-            -project "$PROJECT" \
-            -scheme "$SCHEME" \
-            -destination 'generic/platform=iOS Simulator' \
-            -derivedDataPath DerivedData \
-            CODE_SIGNING_ALLOWED=NO \
-            -quiet
-
       - name: Pick iOS Simulator
         id: simulator
         working-directory: Modules
@@ -63,5 +53,15 @@ jobs:
             -scheme Modules-Package \
             -destination "platform=iOS Simulator,id=${{ steps.simulator.outputs.udid }}" \
             -derivedDataPath ../DerivedData/Modules \
+            CODE_SIGNING_ALLOWED=NO \
+            -quiet
+
+      - name: Test app
+        run: |
+          xcodebuild test \
+            -project "$PROJECT" \
+            -scheme "$SCHEME" \
+            -destination "platform=iOS Simulator,id=${{ steps.simulator.outputs.udid }}" \
+            -derivedDataPath DerivedData \
             CODE_SIGNING_ALLOWED=NO \
             -quiet

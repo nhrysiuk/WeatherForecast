@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension View {
-    public func skeleton(_ isActive: Bool) -> some View {
+    func skeleton(_ isActive: Bool) -> some View {
         redacted(reason: isActive ? .placeholder : [])
             .mask {
                 if isActive {
