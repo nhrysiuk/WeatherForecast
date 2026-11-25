@@ -15,9 +15,7 @@ import SwiftUI
 
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                HomeView(model: homeModel)
-            }
+            HomeView(model: homeModel)
         }
     }
 }

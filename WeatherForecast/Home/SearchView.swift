@@ -3,14 +3,13 @@ import SwiftUI
 
 struct SearchView: View {
     let model: HomeModel
+    let open: (City) -> Void
     let retry: () -> Void
-
-    @Environment(\.dismissSearch) private var dismissSearch
 
     var body: some View {
         switch model.searchState {
         case .idle:
-            SearchHistoryView(model: model)
+            SearchHistoryView(model: model, open: open)
         case .invalid(let error):
             ContentUnavailableView {
                 Label(.invalidNameTitle, systemImage: "character.cursor.ibeam")
@@ -38,20 +37,12 @@ struct SearchView: View {
             }
             Section {
                 ForEach(cities) { city in
-                    Button {
-                        select(city)
-                    } label: {
+                    CityLink(city: city, open: open) {
                         CityRow(city: city)
                     }
-                    .tint(.primary)
                 }
             }
         }
-    }
-
-    private func select(_ city: City) {
-        Task { await model.save(city) }
-        dismissSearch()
     }
 }
 

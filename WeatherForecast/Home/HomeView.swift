@@ -9,13 +9,24 @@ struct HomeView: View {
 
     @Bindable private var model: HomeModel
     @State private var searchAttempt = 0
+    @State private var path: [City] = []
 
     init(model: HomeModel) {
         self.model = model
     }
 
     var body: some View {
-        HomeContent(model: model, retrySearch: { searchAttempt += 1 })
+        NavigationStack(path: $path) {
+            content
+        }
+    }
+
+    private var content: some View {
+        HomeContent(
+            model: model,
+            open: { path.append($0) },
+            retrySearch: { searchAttempt += 1 }
+        )
             .navigationTitle(Text(.homeTitle))
             .searchable(text: $model.query, prompt: Text(.searchPrompt))
             .keepsNavigationBarWhileSearching()
@@ -26,6 +37,7 @@ struct HomeView: View {
             }
             .navigationDestination(for: City.self) { city in
                 ForecastView(city: city, forecastProvider: model.forecastProvider)
+                    .task { await model.save(city) }
             }
             .task {
                 await model.loadHistory()
@@ -49,6 +61,7 @@ private extension View {
 
 private struct HomeContent: View {
     let model: HomeModel
+    let open: (City) -> Void
     let retrySearch: () -> Void
 
     @Environment(\.isSearching) private var isSearching
@@ -63,13 +76,20 @@ private struct HomeContent: View {
                         Text(.findCityMessage)
                     }
                 }
+        } else if isSearching {
+            SearchView(model: model, open: open, retry: retrySearch)
         } else {
-            SearchView(model: model, retry: retrySearch)
+            SearchHistoryView(model: model, open: open)
+                .toolbar {
+                    if model.historyState == .loaded {
+                        EditButton()
+                    }
+                }
         }
     }
 
     private var showsPlaceholder: Bool {
         let hasNoHistory = model.historyState == .loaded && model.history.cities.isEmpty
-        return !isSearching || (model.searchState == .idle && hasNoHistory)
+        return hasNoHistory && (!isSearching || model.searchState == .idle)
     }
 }

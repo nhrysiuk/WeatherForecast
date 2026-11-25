@@ -104,10 +104,6 @@ final class HomeModel {
         await updateHistory { $0.remove(atOffsets: offsets) }
     }
 
-    func move(fromOffsets source: IndexSet, toOffset destination: Int) async {
-        await updateHistory { $0.move(fromOffsets: source, toOffset: destination) }
-    }
-
     private func updateHistory(_ change: (inout SearchHistory) -> Void) async {
         guard historyState == .loaded else { return }
         var updated = history

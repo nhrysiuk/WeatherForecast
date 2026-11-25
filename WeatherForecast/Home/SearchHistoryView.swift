@@ -3,6 +3,7 @@ import SwiftUI
 
 struct SearchHistoryView: View {
     let model: HomeModel
+    let open: (City) -> Void
 
     var body: some View {
         switch model.historyState {
@@ -16,7 +17,7 @@ struct SearchHistoryView: View {
             List {
                 Section {
                     ForEach(model.history.cities) { city in
-                        NavigationLink(value: city) {
+                        CityLink(city: city, open: open) {
                             HistoryRow(
                                 city: city,
                                 summary: model.summaries[city.coordinate],

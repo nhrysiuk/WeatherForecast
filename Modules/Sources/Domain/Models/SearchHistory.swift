@@ -33,11 +33,4 @@ public struct SearchHistory: Equatable, Sendable {
             cities.remove(at: index)
         }
     }
-
-    public mutating func move(fromOffsets source: IndexSet, toOffset destination: Int) {
-        let moving = source.map { cities[$0] }
-        let insertionIndex = destination - source.count(in: 0..<destination)
-        remove(atOffsets: source)
-        cities.insert(contentsOf: moving, at: insertionIndex)
-    }
 }

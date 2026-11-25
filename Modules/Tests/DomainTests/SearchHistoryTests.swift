@@ -35,19 +35,6 @@ struct SearchHistoryTests {
         #expect(history.cities.map(\.id) == [1, 3])
     }
 
-    @Test(arguments: [
-        (source: [0], destination: 3, expected: [2, 3, 1, 4]),
-        (source: [3], destination: 0, expected: [4, 1, 2, 3]),
-        (source: [0, 2], destination: 4, expected: [2, 4, 1, 3]),
-    ])
-    func movesCitiesLikeSwiftUIList(source: [Int], destination: Int, expected: [Int]) {
-        var history = SearchHistory(cities: [.stub(id: 1), .stub(id: 2), .stub(id: 3), .stub(id: 4)])
-
-        history.move(fromOffsets: IndexSet(source), toOffset: destination)
-
-        #expect(history.cities.map(\.id) == expected)
-    }
-
     @Test func removesDuplicatesFromRestoredCities() {
         let history = SearchHistory(cities: [.stub(id: 1), .stub(id: 2), .stub(id: 1)])
 
