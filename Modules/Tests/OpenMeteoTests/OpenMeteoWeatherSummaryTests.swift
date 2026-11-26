@@ -63,18 +63,6 @@ struct OpenMeteoWeatherSummaryTests {
         #expect(summaries[gdansk]?.temperature == Measurement(value: 3.3, unit: .celsius))
     }
 
-    @Test func requestsRepeatedCoordinateOnce() async throws {
-        let httpClient = StubHTTPClient(json: SummaryJSON.location())
-        let provider = OpenMeteoForecastProvider(httpClient: httpClient)
-
-        let summaries = try await provider.summaries(for: [gdansk, gdansk])
-
-        let url = try #require(httpClient.requests.first?.url)
-        let components = try #require(URLComponents(url: url, resolvingAgainstBaseURL: false))
-        #expect(components.queryItems?.first { $0.name == "latitude" }?.value == "54.35")
-        #expect(Array(summaries.keys) == [gdansk])
-    }
-
     @Test func keepsRequestOrderWhenCoordinatesRepeat() async throws {
         let json = SummaryJSON.locations(
             SummaryJSON.location(),

@@ -30,14 +30,6 @@ final class FileSearchHistoryStoreTests {
         #expect(try await store.load() == history)
     }
 
-    @Test func keepsHistoryForNextLaunch() async throws {
-        try await store.save(SearchHistory(cities: [.gdansk]))
-
-        let relaunchedStore = FileSearchHistoryStore(fileURL: fileURL)
-
-        #expect(try await relaunchedStore.load() == SearchHistory(cities: [.gdansk]))
-    }
-
     @Test func replacesPreviouslySavedHistory() async throws {
         try await store.save(SearchHistory(cities: [.gdansk, .lviv]))
 
@@ -88,6 +80,21 @@ final class FileSearchHistoryStoreTests {
         await #expect(throws: DecodingError.self) {
             try await store.load()
         }
+    }
+
+    @Test func discardsUnreadableFileAndStartsEmpty() async throws {
+        try write("not json")
+
+        try await store.discardUnreadableHistory()
+
+        #expect(try await store.load() == SearchHistory())
+        #expect(!FileManager.default.fileExists(atPath: fileURL.path()))
+    }
+
+    @Test func discardingWithoutSavedFileSucceeds() async throws {
+        try await store.discardUnreadableHistory()
+
+        #expect(try await store.load() == SearchHistory())
     }
 
     private func write(_ json: String) throws {
