@@ -289,24 +289,6 @@
         }
       }
     },
-    "historyFullMessage" : {
-      "comment" : "Shown above search results when the saved list has reached its limit.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your list is full. Remove a city to add a new one."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lista jest pełna. Usuń miasto, aby dodać nowe."
-          }
-        }
-      }
-    },
     "homeTitle" : {
       "comment" : "Title of the home screen.",
       "extractionState" : "manual",

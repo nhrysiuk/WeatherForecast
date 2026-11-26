@@ -28,10 +28,6 @@ final class HomeModel {
     private(set) var summaries: [Coordinate: WeatherSummary] = [:]
     private(set) var summariesFailed = false
 
-    var isHistoryFull: Bool {
-        history.cities.count >= SearchHistory.limit
-    }
-
     private let citySearch: any CitySearching
     private let historyStore: any SearchHistoryStoring
     let forecastProvider: any ForecastProviding
@@ -97,7 +93,7 @@ final class HomeModel {
     }
 
     func save(_ city: City) async {
-        await updateHistory { _ = $0.record(city) }
+        await updateHistory { $0.record(city) }
     }
 
     func remove(atOffsets offsets: IndexSet) async {

@@ -29,17 +29,9 @@ struct SearchView: View {
 
     private func results(_ cities: [City]) -> some View {
         List {
-            if model.isHistoryFull {
-                Section {
-                    Label(.historyFullMessage, systemImage: "exclamationmark.circle")
-                        .foregroundStyle(.secondary)
-                }
-            }
-            Section {
-                ForEach(cities) { city in
-                    CityLink(city: city, open: open) {
-                        CityRow(city: city)
-                    }
+            ForEach(cities) { city in
+                CityLink(city: city, open: open) {
+                    CityRow(city: city)
                 }
             }
         }

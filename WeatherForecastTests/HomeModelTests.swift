@@ -95,7 +95,7 @@ struct HomeModelTests {
         #expect(await store.savedHistories == [SearchHistory(cities: [gdansk, wroclaw])])
     }
 
-    @Test func doesNotSaveWhenHistoryIsFull() async {
+    @Test func dropsOldestCityWhenHistoryIsFull() async {
         let cities = (1...SearchHistory.limit).map { City.stub(id: 100 + $0) }
         let store = InMemoryHistoryStore(SearchHistory(cities: cities))
         let model = makeModel(store: store)
@@ -103,9 +103,9 @@ struct HomeModelTests {
 
         await model.save(gdansk)
 
-        #expect(model.isHistoryFull)
-        #expect(model.history.cities == cities)
-        #expect(await store.savedHistories.isEmpty)
+        let expected = SearchHistory(cities: [gdansk] + cities.dropLast())
+        #expect(model.history == expected)
+        #expect(await store.savedHistories == [expected])
     }
 
     @Test func savesHistoryAfterRemoval() async {

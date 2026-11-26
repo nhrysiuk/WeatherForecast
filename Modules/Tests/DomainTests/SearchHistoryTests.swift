@@ -6,25 +6,26 @@ struct SearchHistoryTests {
     @Test func addsNewCityAtTop() {
         var history = SearchHistory(cities: [.stub(id: 1)])
 
-        #expect(history.record(.stub(id: 2)) == .added)
+        history.record(.stub(id: 2))
+
         #expect(history.cities.map(\.id) == [2, 1])
     }
 
     @Test func keepsPositionAndUpdatesDataOfReopenedCity() {
         var history = SearchHistory(cities: [.stub(id: 2), .stub(id: 1, name: "Warsaw")])
 
-        #expect(history.record(.stub(id: 1, name: "Warszawa")) == .alreadySaved)
+        history.record(.stub(id: 1, name: "Warszawa"))
+
         #expect(history.cities.map(\.id) == [2, 1])
         #expect(history.cities.map(\.name) == ["City", "Warszawa"])
     }
 
-    @Test func stopsAddingAtLimitWithoutRemovingAnything() {
+    @Test func dropsOldestCityAtLimit() {
         var history = SearchHistory(cities: (1...SearchHistory.limit).map { .stub(id: $0) })
-        let saved = history.cities
 
-        #expect(history.record(.stub(id: 100)) == .full)
-        #expect(history.cities == saved)
-        #expect(history.record(.stub(id: 1)) == .alreadySaved)
+        history.record(.stub(id: 100))
+
+        #expect(history.cities.map(\.id) == [100] + (1..<SearchHistory.limit))
     }
 
     @Test func removesCitiesAtOffsets() {
