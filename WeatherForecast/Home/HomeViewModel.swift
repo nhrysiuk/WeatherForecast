@@ -85,9 +85,12 @@ final class HomeViewModel {
         searchState = .loading
         do {
             try await Task.sleep(for: debounce)
-            searchState = .results(try await citySearch.searchCities(named: name))
+            let cities = try await citySearch.searchCities(named: name)
+            try Task.checkCancellation()
+            searchState = .results(cities)
         } catch is CancellationError {
         } catch {
+            guard !Task.isCancelled else { return }
             searchState = .failed(error as? WeatherError ?? .server)
         }
     }

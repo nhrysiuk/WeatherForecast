@@ -84,6 +84,46 @@ struct HomeViewModelTests {
         #expect(viewModel.searchState == .failed(error))
     }
 
+    @Test func ignoresResultsOfCancelledSearch() async {
+        let (started, startedContinuation) = AsyncStream<Void>.makeStream()
+        let (release, releaseContinuation) = AsyncStream<Void>.makeStream()
+        let viewModel = makeModel(search: StubCitySearch { _ in
+            startedContinuation.yield()
+            for await _ in release {}
+            return [City.stub(id: 1, name: "Gdańsk")]
+        })
+        viewModel.query = "Gdańsk"
+        let search = Task { await viewModel.search() }
+        var startedIterator = started.makeAsyncIterator()
+        await startedIterator.next()
+
+        search.cancel()
+        await search.value
+        releaseContinuation.finish()
+
+        #expect(viewModel.searchState == .loading)
+    }
+
+    @Test func ignoresFailureOfCancelledSearch() async {
+        let (started, startedContinuation) = AsyncStream<Void>.makeStream()
+        let (release, releaseContinuation) = AsyncStream<Void>.makeStream()
+        let viewModel = makeModel(search: StubCitySearch { _ in
+            startedContinuation.yield()
+            for await _ in release {}
+            throw WeatherError.server
+        })
+        viewModel.query = "Gdańsk"
+        let search = Task { await viewModel.search() }
+        var startedIterator = started.makeAsyncIterator()
+        await startedIterator.next()
+
+        search.cancel()
+        await search.value
+        releaseContinuation.finish()
+
+        #expect(viewModel.searchState == .loading)
+    }
+
     @Test func savesNewCityOnTop() async {
         let store = InMemoryHistoryStore(SearchHistory(cities: [wroclaw]))
         let viewModel = makeModel(store: store)
