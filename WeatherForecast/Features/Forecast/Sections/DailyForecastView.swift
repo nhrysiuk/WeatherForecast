@@ -20,14 +20,28 @@ struct DailyForecastView: View {
     let days: [DailyForecast]
     let timeZone: TimeZone
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.temperatureScale) private var temperatureScale
+
     var body: some View {
-        ForecastSection(title: .dailyForecastTitle(days.count), systemImage: "calendar") {
-            Grid(horizontalSpacing: 12, verticalSpacing: 10) {
-                ForEach(Array(days.enumerated()), id: \.element.date) { index, day in
-                    if index > 0 {
-                        Divider()
+        ForecastSection(title: .dailyForecastTitle(days.count), systemImage: "calendar", tint: .indigo) {
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(spacing: 12) {
+                    ForEach(Array(days.enumerated()), id: \.element.date) { index, day in
+                        if index > 0 {
+                            Divider()
+                        }
+                        stackedRow(for: day, isToday: index == 0)
                     }
-                    row(for: day, isToday: index == 0)
+                }
+            } else {
+                Grid(horizontalSpacing: 12, verticalSpacing: 10) {
+                    ForEach(Array(days.enumerated()), id: \.element.date) { index, day in
+                        if index > 0 {
+                            Divider()
+                        }
+                        row(for: day, isToday: index == 0)
+                    }
                 }
             }
         }
@@ -41,34 +55,63 @@ struct DailyForecastView: View {
 
     private func row(for day: DailyForecast, isToday: Bool) -> some View {
         GridRow {
-            Group {
-                if isToday {
-                    Text(.today)
-                } else {
-                    Text(day.date, format: Date.FormatStyle(timeZone: timeZone).weekday(.abbreviated))
-                }
-            }
-            .gridColumnAlignment(.leading)
-            .frame(minWidth: 56, alignment: .leading)
+            dayName(of: day, isToday: isToday)
+                .gridColumnAlignment(.leading)
+                .frame(minWidth: 56, alignment: .leading)
             VStack(spacing: 2) {
-                Image(systemName: day.condition.symbolName(isDay: true))
-                    .symbolRenderingMode(.hierarchical)
-                PrecipitationChanceText(probability: day.precipitationProbability)
-                    .font(.caption.weight(.semibold))
+                WeatherSymbol(condition: day.condition, isDay: true)
+                precipitation(of: day)
             }
             .frame(minWidth: 32)
-            Text(day.minTemperature.formattedTemperature())
+            Text(day.minTemperature.formattedTemperature(scale: temperatureScale))
                 .foregroundStyle(.secondary)
                 .gridColumnAlignment(.trailing)
-            TemperatureRangeBar(
-                range: day.minTemperature.converted(to: .celsius).value...day.maxTemperature.converted(to: .celsius).value,
-                scale: scale
-            )
-            Text(day.maxTemperature.formattedTemperature())
+            rangeBar(for: day)
+            Text(day.maxTemperature.formattedTemperature(scale: temperatureScale))
                 .gridColumnAlignment(.trailing)
         }
         .font(.body.weight(.medium))
         .monospacedDigit()
+    }
+
+    private func stackedRow(for day: DailyForecast, isToday: Bool) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(alignment: .firstTextBaseline) {
+                dayName(of: day, isToday: isToday)
+                Spacer(minLength: 8)
+                WeatherSymbol(condition: day.condition, isDay: true)
+                precipitation(of: day)
+            }
+            Text(.highLowTemperature(
+                day.maxTemperature.formattedTemperature(scale: temperatureScale),
+                day.minTemperature.formattedTemperature(scale: temperatureScale)
+            ))
+            .foregroundStyle(.secondary)
+            rangeBar(for: day)
+        }
+        .font(.body.weight(.medium))
+        .monospacedDigit()
+    }
+
+    @ViewBuilder
+    private func dayName(of day: DailyForecast, isToday: Bool) -> some View {
+        if isToday {
+            Text(.today)
+        } else {
+            Text(day.date, format: Date.FormatStyle(timeZone: timeZone).weekday(.abbreviated))
+        }
+    }
+
+    private func precipitation(of day: DailyForecast) -> some View {
+        PrecipitationChanceText(probability: day.precipitationProbability)
+            .font(.caption.weight(.semibold))
+    }
+
+    private func rangeBar(for day: DailyForecast) -> some View {
+        TemperatureRangeBar(
+            range: day.minTemperature.converted(to: .celsius).value...day.maxTemperature.converted(to: .celsius).value,
+            scale: scale
+        )
     }
 }
 

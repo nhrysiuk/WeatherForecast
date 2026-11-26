@@ -78,12 +78,20 @@ private struct HomeContent: View {
 
     var body: some View {
         List {
-            if isSearching {
-                SearchResultsView(search: search, open: open)
-            } else {
-                SearchHistoryView(historyStore: historyStore, open: open)
+            Group {
+                if isSearching {
+                    SearchResultsView(search: search, open: open)
+                } else {
+                    SearchHistoryView(historyStore: historyStore, open: open)
+                }
             }
+            .listRowBackground(Rectangle().fill(.thinMaterial))
         }
+        .scrollContentBackground(.hidden)
+        .background {
+            WeatherBackground(style: .neutral)
+        }
+        .fontDesign(.rounded)
         .overlay {
             if isSearching {
                 SearchMessageView(query: query, search: search, retry: retrySearch)
@@ -98,6 +106,7 @@ private struct HomeContent: View {
         .toolbar {
             if !isSearching && hasHistory {
                 EditButton()
+                    .navigationBarItemTint()
             }
         }
     }

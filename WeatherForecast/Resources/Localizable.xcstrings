@@ -1,6 +1,24 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "celsius" : {
+      "comment" : "Option in the temperature unit menu.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Celsius (°C)"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Celsjusz (°C)"
+          }
+        }
+      }
+    },
     "conditionClear" : {
       "comment" : "Name of a weather condition.",
       "extractionState" : "manual",
@@ -213,6 +231,24 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Prognoza %lld-dniowa"
+          }
+        }
+      }
+    },
+    "fahrenheit" : {
+      "comment" : "Option in the temperature unit menu.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fahrenheit (°F)"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fahrenheit (°F)"
           }
         }
       }
@@ -458,13 +494,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chance of Precipitation"
+            "value" : "Precipitation"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Szansa opadów"
+            "value" : "Opady"
           }
         }
       }
@@ -555,6 +591,24 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zachód słońca"
+          }
+        }
+      }
+    },
+    "temperatureUnit" : {
+      "comment" : "Title of the menu that switches between Celsius and Fahrenheit.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temperature unit"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jednostka temperatury"
           }
         }
       }
@@ -789,6 +843,24 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Widoczność"
+          }
+        }
+      }
+    },
+    "weatherDataAttribution" : {
+      "comment" : "Link at the bottom of the forecast that credits the weather data source.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weather data by Open-Meteo.com"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dane pogodowe: Open-Meteo.com"
           }
         }
       }
