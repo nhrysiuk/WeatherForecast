@@ -22,17 +22,21 @@ struct CurrentWeatherView: View {
     let isDay: Bool
     let today: DailyForecast?
 
+    @ScaledMetric(relativeTo: .largeTitle) private var temperatureSize = 88.0
+
     var body: some View {
         VStack(spacing: 4) {
             Text(temperature.formattedTemperature())
-                .font(.system(size: 80, weight: .semibold))
+                .font(.system(size: temperatureSize, weight: .semibold, design: .rounded))
+                .shadow(color: .black.opacity(0.08), radius: 12, y: 6)
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
             Label {
                 Text(condition.localizedName)
             } icon: {
-                Image(systemName: condition.symbolName(isDay: isDay))
-                    .symbolRenderingMode(.hierarchical)
+                WeatherSymbol(condition: condition, isDay: isDay)
             }
-            .font(.title3)
+            .font(.title3.weight(.medium))
             if let today {
                 Text(.highLowTemperature(
                     today.maxTemperature.formattedTemperature(),

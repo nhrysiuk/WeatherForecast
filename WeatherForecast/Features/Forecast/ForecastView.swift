@@ -5,16 +5,29 @@ struct ForecastView: View {
     @State private var viewModel: ForecastViewModel
     @State private var loadAttempt = 0
 
+    private static let maximumContentWidth: CGFloat = 640
+
     init(city: City, forecastProvider: any ForecastProviding) {
         _viewModel = State(initialValue: ForecastViewModel(city: city, forecastProvider: forecastProvider))
     }
 
     var body: some View {
         content
+            .fontDesign(.rounded)
+            .background {
+                WeatherBackground(style: backgroundStyle)
+            }
             .navigationBarTitleDisplayMode(.inline)
             .task(id: loadAttempt) {
                 await viewModel.load()
             }
+    }
+
+    private var backgroundStyle: WeatherBackgroundStyle {
+        guard case .loaded(let forecast) = viewModel.state else {
+            return .neutral
+        }
+        return WeatherBackgroundStyle(forecast: forecast)
     }
 
     @ViewBuilder
@@ -65,6 +78,8 @@ struct ForecastView: View {
                 .skeleton(isLoading)
             }
             .padding()
+            .frame(maxWidth: Self.maximumContentWidth)
+            .frame(maxWidth: .infinity)
         }
     }
 }

@@ -22,8 +22,11 @@ struct HourlyForecastView: View {
     let timeZone: TimeZone
     let currentTemperature: Measurement<UnitTemperature>?
 
+    @ScaledMetric(relativeTo: .title3) private var iconHeight = 28.0
+    @ScaledMetric(relativeTo: .caption2) private var precipitationHeight = 14.0
+
     var body: some View {
-        ForecastSection(title: .hourlyForecastTitle, systemImage: "clock") {
+        ForecastSection(title: .hourlyForecastTitle, systemImage: "clock", tint: .teal) {
             ScrollView(.horizontal) {
                 HStack(spacing: 20) {
                     ForEach(Array(hours.enumerated()), id: \.element.time) { index, hour in
@@ -77,10 +80,9 @@ struct HourlyForecastView: View {
             .font(.footnote.weight(.medium))
             .foregroundStyle(.secondary)
             VStack(spacing: 2) {
-                Image(systemName: hour.condition.symbolName(isDay: hour.isDay))
-                    .symbolRenderingMode(.hierarchical)
+                WeatherSymbol(condition: hour.condition, isDay: hour.isDay)
                     .font(.title3)
-                    .frame(height: 28)
+                    .frame(height: iconHeight)
                     .overlay(alignment: .topTrailing) {
                         if Self.showsRiskBadge(hour) {
                             Self.riskBadge
@@ -89,10 +91,10 @@ struct HourlyForecastView: View {
                         }
                     }
                 PrecipitationChanceText(probability: hour.precipitationProbability)
-                    .font(.caption.weight(.semibold))
-                    .frame(height: 16)
+                    .font(.caption2.weight(.semibold))
+                    .frame(height: precipitationHeight)
             }
-            .frame(height: hasPrecipitationRow ? 46 : 28)
+            .frame(height: hasPrecipitationRow ? iconHeight + precipitationHeight + 2 : iconHeight)
             Text(temperature(of: hour, isNow: isNow).formattedTemperature())
                 .font(.title3)
         }

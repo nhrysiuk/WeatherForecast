@@ -31,62 +31,109 @@ struct ForecastDetailsView: View {
     let sunset: Date?
     let timeZone: TimeZone
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     var body: some View {
-        Grid(horizontalSpacing: 16, verticalSpacing: 16) {
-            GridRow {
-                ForecastTile(title: .sunrise, systemImage: "sunrise.fill") {
-                    timeValue(sunrise)
+        if dynamicTypeSize.isAccessibilitySize {
+            VStack(spacing: 16) {
+                sunriseTile
+                sunsetTile
+                feelsLikeTile
+                precipitationTile
+                visibilityTile
+                humidityTile
+                windTile
+                uvIndexTile
+            }
+        } else {
+            Grid(horizontalSpacing: 16, verticalSpacing: 16) {
+                GridRow {
+                    sunriseTile
+                    sunsetTile
                 }
-                ForecastTile(title: .sunset, systemImage: "sunset.fill") {
-                    timeValue(sunset)
+                GridRow {
+                    feelsLikeTile
+                    precipitationTile
+                }
+                GridRow {
+                    visibilityTile
+                    humidityTile
+                }
+                GridRow {
+                    windTile
+                    uvIndexTile
                 }
             }
-            GridRow {
-                ForecastTile(title: .feelsLike, systemImage: "thermometer.medium") {
-                    value(current.apparentTemperature.formattedTemperature())
+        }
+    }
+
+    private var sunriseTile: some View {
+        ForecastTile(title: .sunrise, systemImage: "sunrise.fill", tint: .orange) {
+            timeValue(sunrise)
+        }
+    }
+
+    private var sunsetTile: some View {
+        ForecastTile(title: .sunset, systemImage: "sunset.fill", tint: .pink) {
+            timeValue(sunset)
+        }
+    }
+
+    private var feelsLikeTile: some View {
+        ForecastTile(title: .feelsLike, systemImage: "thermometer.medium", tint: .red) {
+            value(current.apparentTemperature.formattedTemperature())
+        }
+    }
+
+    private var precipitationTile: some View {
+        ForecastTile(title: .precipitationChance, systemImage: "drop.fill", tint: .blue) {
+            value(percent(current.precipitationProbability))
+        }
+    }
+
+    private var visibilityTile: some View {
+        ForecastTile(title: .visibility, systemImage: "eye.fill", tint: .purple) {
+            value(current.visibility.converted(to: .kilometers).formatted(Self.distanceFormat))
+        }
+    }
+
+    private var humidityTile: some View {
+        ForecastTile(title: .humidity, systemImage: "humidity.fill", tint: .cyan) {
+            value(percent(current.relativeHumidity))
+        }
+    }
+
+    private var windTile: some View {
+        ForecastTile(title: .wind, systemImage: "wind", tint: .mint) {
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    value(current.wind.speed.formatted(Self.speedFormat))
+                    gusts
                 }
-                ForecastTile(title: .precipitationChance, systemImage: "drop.fill") {
-                    value(percent(current.precipitationProbability))
-                }
+                Spacer(minLength: 4)
+                icon("arrow.down.circle.fill")
+                    .rotationEffect(.degrees(current.wind.direction.converted(to: .degrees).value))
             }
-            GridRow {
-                ForecastTile(title: .visibility, systemImage: "eye.fill") {
-                    value(current.visibility.converted(to: .kilometers).formatted(Self.distanceFormat))
+        }
+    }
+
+    private var uvIndexTile: some View {
+        ForecastTile(title: .uvIndex, systemImage: "sun.max.fill", tint: .yellow) {
+            if let uvIndex = current.uvIndex {
+                HStack(alignment: .firstTextBaseline, spacing: 6) {
+                    value(Int(uvIndex.rounded()).formatted())
+                    Text(UVLevel(index: uvIndex).localizedName)
+                        .font(.headline)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
                 }
-                ForecastTile(title: .humidity, systemImage: "humidity.fill") {
-                    value(percent(current.relativeHumidity))
+                UVIndexBar(index: uvIndex)
+                    .padding(.vertical, 6)
+                if uvIndex >= Self.sunscreenUVIndex {
+                    caption(.uvSunscreen)
                 }
-            }
-            GridRow {
-                ForecastTile(title: .wind, systemImage: "wind") {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 2) {
-                            value(current.wind.speed.formatted(Self.speedFormat))
-                            gusts
-                        }
-                        Spacer(minLength: 4)
-                        icon("arrow.down.circle.fill")
-                            .rotationEffect(.degrees(current.wind.direction.converted(to: .degrees).value))
-                    }
-                }
-                ForecastTile(title: .uvIndex, systemImage: "sun.max.fill") {
-                    if let uvIndex = current.uvIndex {
-                        HStack(alignment: .firstTextBaseline, spacing: 6) {
-                            value(Int(uvIndex.rounded()).formatted())
-                            Text(UVLevel(index: uvIndex).localizedName)
-                                .font(.headline)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.7)
-                        }
-                        UVIndexBar(index: uvIndex)
-                            .padding(.vertical, 6)
-                        if uvIndex >= Self.sunscreenUVIndex {
-                            caption(.uvSunscreen)
-                        }
-                    } else {
-                        value("–")
-                    }
-                }
+            } else {
+                value("–")
             }
         }
     }
@@ -153,7 +200,7 @@ struct ForecastDetailsView: View {
 
     private func icon(_ systemName: String) -> some View {
         Image(systemName: systemName)
-            .font(.system(size: 28))
+            .font(.title)
             .symbolRenderingMode(.hierarchical)
             .foregroundStyle(.secondary)
     }

@@ -3,14 +3,22 @@ import SwiftUI
 extension View {
     func skeleton(_ isActive: Bool) -> some View {
         redacted(reason: isActive ? .placeholder : [])
-            .mask {
-                if isActive {
-                    ShimmerMask()
-                } else {
-                    Rectangle()
-                }
-            }
+            .modifier(ShimmerModifier(isActive: isActive))
             .allowsHitTesting(!isActive)
+    }
+}
+
+private struct ShimmerModifier: ViewModifier {
+    let isActive: Bool
+
+    func body(content: Content) -> some View {
+        if isActive {
+            content.mask {
+                ShimmerMask()
+            }
+        } else {
+            content
+        }
     }
 }
 
