@@ -10,7 +10,6 @@ final class HomeViewModel {
     enum HistoryState: Equatable {
         case loading
         case loaded
-        case failed
     }
 
     enum SearchState: Equatable {
@@ -52,8 +51,8 @@ final class HomeViewModel {
             history = try await historyStore.load()
             historyState = .loaded
         } catch {
-            logger.error("Loading history failed: \(String(describing: error), privacy: .public)")
-            historyState = .failed
+            logger.error("Loading history failed, starting with an empty one: \(String(describing: error), privacy: .public)")
+            historyState = .loaded
         }
     }
 

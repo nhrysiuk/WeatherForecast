@@ -9,10 +9,6 @@ struct SearchHistoryView: View {
         switch viewModel.historyState {
         case .loading:
             CityListSkeleton(showsWeather: true)
-        case .failed:
-            ErrorStateView(reason: .unavailable) {
-                Task { await viewModel.loadHistory() }
-            }
         case .loaded:
             List {
                 Section {

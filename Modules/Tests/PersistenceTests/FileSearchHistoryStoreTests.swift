@@ -82,19 +82,12 @@ final class FileSearchHistoryStoreTests {
         }
     }
 
-    @Test func discardsUnreadableFileAndStartsEmpty() async throws {
+    @Test func savingReplacesUnreadableFile() async throws {
         try write("not json")
 
-        try await store.discardUnreadableHistory()
+        try await store.save(SearchHistory(cities: [.gdansk]))
 
-        #expect(try await store.load() == SearchHistory())
-        #expect(!FileManager.default.fileExists(atPath: fileURL.path()))
-    }
-
-    @Test func discardingWithoutSavedFileSucceeds() async throws {
-        try await store.discardUnreadableHistory()
-
-        #expect(try await store.load() == SearchHistory())
+        #expect(try await store.load() == SearchHistory(cities: [.gdansk]))
     }
 
     private func write(_ json: String) throws {

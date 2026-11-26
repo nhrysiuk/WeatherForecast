@@ -28,11 +28,4 @@ public actor FileSearchHistoryStore: SearchHistoryStoring {
         )
         try data.write(to: fileURL, options: .atomic)
     }
-
-    public func discardUnreadableHistory() throws {
-        do {
-            try FileManager.default.removeItem(at: fileURL)
-        } catch let error as CocoaError where error.code == .fileNoSuchFile {
-        }
-    }
 }

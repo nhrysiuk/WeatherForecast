@@ -33,15 +33,15 @@ struct HomeViewModelTests {
         #expect(viewModel.history.cities == [gdansk, wroclaw])
     }
 
-    @Test func neverOverwritesHistoryThatFailedToLoad() async {
+    @Test func startsEmptyWhenHistoryIsUnreadable() async {
         let store = InMemoryHistoryStore(loadError: CocoaError(.fileReadCorruptFile))
         let viewModel = makeModel(store: store)
 
         await viewModel.loadHistory()
         await viewModel.save(gdansk)
 
-        #expect(viewModel.historyState == .failed)
-        #expect(await store.savedHistories.isEmpty)
+        #expect(viewModel.historyState == .loaded)
+        #expect(await store.savedHistories == [SearchHistory(cities: [gdansk])])
     }
 
     @Test(arguments: ["", " ", "a"])
