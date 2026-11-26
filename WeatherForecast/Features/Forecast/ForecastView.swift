@@ -17,10 +17,18 @@ struct ForecastView: View {
             .background {
                 WeatherBackground(style: backgroundStyle)
             }
+            .environment(\.timeZone, timeZone)
             .navigationBarTitleDisplayMode(.inline)
             .task(id: loadAttempt) {
                 await viewModel.load()
             }
+    }
+
+    private var timeZone: TimeZone {
+        guard case .loaded(let forecast) = viewModel.state else {
+            return .current
+        }
+        return forecast.timeZone
     }
 
     private var backgroundStyle: WeatherBackgroundStyle {
