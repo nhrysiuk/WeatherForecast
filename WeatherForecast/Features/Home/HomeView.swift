@@ -10,7 +10,6 @@ struct HomeView: View {
     private let dependencies: AppDependencies
     @Bindable private var router: AppRouter
     @State private var search: SearchViewModel
-    @State private var history: HistoryViewModel
     @State private var query = ""
     @State private var searchAttempt = 0
 
@@ -18,7 +17,6 @@ struct HomeView: View {
         self.dependencies = dependencies
         self.router = router
         _search = State(initialValue: SearchViewModel(citySearch: dependencies.citySearch))
-        _history = State(initialValue: HistoryViewModel(forecastProvider: dependencies.forecastProvider))
     }
 
     var body: some View {
@@ -31,7 +29,6 @@ struct HomeView: View {
         HomeContent(
             query: query,
             search: search,
-            history: history,
             historyStore: dependencies.historyStore,
             open: router.open,
             retrySearch: { searchAttempt += 1 }
@@ -73,7 +70,6 @@ private extension View {
 private struct HomeContent: View {
     let query: String
     let search: SearchViewModel
-    let history: HistoryViewModel
     let historyStore: HistoryStore
     let open: (City) -> Void
     let retrySearch: () -> Void
@@ -91,9 +87,9 @@ private struct HomeContent: View {
                     }
                 }
         } else if isSearching {
-            SearchView(query: query, search: search, history: history, historyStore: historyStore, open: open, retry: retrySearch)
+            SearchView(query: query, search: search, historyStore: historyStore, open: open, retry: retrySearch)
         } else {
-            SearchHistoryView(history: history, historyStore: historyStore, open: open)
+            SearchHistoryView(historyStore: historyStore, open: open)
                 .toolbar {
                     if historyStore.isLoaded {
                         EditButton()

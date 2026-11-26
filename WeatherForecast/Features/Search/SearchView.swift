@@ -4,7 +4,6 @@ import SwiftUI
 struct SearchView: View {
     let query: String
     let search: SearchViewModel
-    let history: HistoryViewModel
     let historyStore: HistoryStore
     let open: (City) -> Void
     let retry: () -> Void
@@ -12,7 +11,7 @@ struct SearchView: View {
     var body: some View {
         switch search.state {
         case .idle:
-            SearchHistoryView(history: history, historyStore: historyStore, open: open)
+            SearchHistoryView(historyStore: historyStore, open: open)
         case .invalid(let error):
             ContentUnavailableView {
                 Label(.invalidNameTitle, systemImage: "character.cursor.ibeam")

@@ -2,14 +2,11 @@ import Domain
 
 actor StubForecastProvider: ForecastProviding {
     private let forecast: Forecast?
-    private let summary: WeatherSummary?
     private var failures: [WeatherError]
     private(set) var requestedForecasts: [Coordinate] = []
-    private(set) var requestedCoordinates: [[Coordinate]] = []
 
-    init(forecast: Forecast? = nil, summary: WeatherSummary? = nil, failures: [WeatherError] = []) {
+    init(forecast: Forecast? = nil, failures: [WeatherError] = []) {
         self.forecast = forecast
-        self.summary = summary
         self.failures = failures
     }
 
@@ -18,13 +15,6 @@ actor StubForecastProvider: ForecastProviding {
         try failIfNeeded()
         guard let forecast else { throw WeatherError.server }
         return forecast
-    }
-
-    func summaries(for coordinates: [Coordinate]) throws -> [Coordinate: WeatherSummary] {
-        requestedCoordinates.append(coordinates)
-        try failIfNeeded()
-        guard let summary else { return [:] }
-        return Dictionary(uniqueKeysWithValues: coordinates.map { ($0, summary) })
     }
 
     private func failIfNeeded() throws {

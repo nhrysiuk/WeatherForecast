@@ -11,15 +11,9 @@ struct CityListSkeleton: View {
         coordinate: Coordinate(latitude: 0, longitude: 0)
     )
 
-    var showsWeather = false
-
     var body: some View {
         List(0..<Self.rowCount, id: \.self) { _ in
-            if showsWeather {
-                HistoryRow(city: Self.placeholder, summary: WeatherSummaryView.placeholder, showsSkeleton: true)
-            } else {
-                CityRow(city: Self.placeholder)
-            }
+            CityRow(city: Self.placeholder)
         }
         .skeleton(true)
     }
