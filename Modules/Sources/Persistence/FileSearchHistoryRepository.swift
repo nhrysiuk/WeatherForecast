@@ -1,7 +1,7 @@
 import Domain
 import Foundation
 
-public actor FileSearchHistoryStore: SearchHistoryStoring {
+public actor FileSearchHistoryRepository: SearchHistoryRepository {
     public static let defaultFileURL = URL.applicationSupportDirectory.appending(path: "SearchHistory.json")
 
     private let fileURL: URL

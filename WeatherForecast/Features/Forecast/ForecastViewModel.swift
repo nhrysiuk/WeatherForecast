@@ -31,7 +31,7 @@ final class ForecastViewModel {
         } catch is CancellationError {
         } catch {
             logger.error("Loading forecast failed: \(String(describing: error), privacy: .public)")
-            state = .failed(error as? WeatherError ?? .server)
+            state = .failed(WeatherError(error))
         }
     }
 }

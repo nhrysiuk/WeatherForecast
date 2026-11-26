@@ -3,15 +3,15 @@ import Foundation
 import Persistence
 import Testing
 
-final class FileSearchHistoryStoreTests {
+final class FileSearchHistoryRepositoryTests {
     private let directory: URL
     private let fileURL: URL
-    private let store: FileSearchHistoryStore
+    private let repository: FileSearchHistoryRepository
 
     init() {
         directory = URL.temporaryDirectory.appending(path: UUID().uuidString)
         fileURL = directory.appending(path: "History/SearchHistory.json")
-        store = FileSearchHistoryStore(fileURL: fileURL)
+        repository = FileSearchHistoryRepository(fileURL: fileURL)
     }
 
     deinit {
@@ -19,23 +19,23 @@ final class FileSearchHistoryStoreTests {
     }
 
     @Test func returnsEmptyHistoryWhenNothingIsSaved() async throws {
-        #expect(try await store.load() == SearchHistory())
+        #expect(try await repository.load() == SearchHistory())
     }
 
     @Test func loadsSavedHistoryInOrder() async throws {
         let history = SearchHistory(cities: [.gdansk, .lviv])
 
-        try await store.save(history)
+        try await repository.save(history)
 
-        #expect(try await store.load() == history)
+        #expect(try await repository.load() == history)
     }
 
     @Test func replacesPreviouslySavedHistory() async throws {
-        try await store.save(SearchHistory(cities: [.gdansk, .lviv]))
+        try await repository.save(SearchHistory(cities: [.gdansk, .lviv]))
 
-        try await store.save(SearchHistory(cities: [.lviv]))
+        try await repository.save(SearchHistory(cities: [.lviv]))
 
-        #expect(try await store.load() == SearchHistory(cities: [.lviv]))
+        #expect(try await repository.load() == SearchHistory(cities: [.lviv]))
     }
 
     @Test func readsVersionOneFormat() async throws {
@@ -63,14 +63,14 @@ final class FileSearchHistoryStoreTests {
         }
         """)
 
-        #expect(try await store.load() == SearchHistory(cities: [.gdansk, .lviv]))
+        #expect(try await repository.load() == SearchHistory(cities: [.gdansk, .lviv]))
     }
 
     @Test func rejectsNewerFormatVersion() async throws {
         try write(#"{"version": 2, "places": []}"#)
 
-        await #expect(throws: SearchHistoryStoreError.unsupportedVersion(2)) {
-            try await store.load()
+        await #expect(throws: SearchHistoryRepositoryError.unsupportedVersion(2)) {
+            try await repository.load()
         }
     }
 
@@ -78,16 +78,16 @@ final class FileSearchHistoryStoreTests {
         try write("not json")
 
         await #expect(throws: DecodingError.self) {
-            try await store.load()
+            try await repository.load()
         }
     }
 
     @Test func savingReplacesUnreadableFile() async throws {
         try write("not json")
 
-        try await store.save(SearchHistory(cities: [.gdansk]))
+        try await repository.save(SearchHistory(cities: [.gdansk]))
 
-        #expect(try await store.load() == SearchHistory(cities: [.gdansk]))
+        #expect(try await repository.load() == SearchHistory(cities: [.gdansk]))
     }
 
     private func write(_ json: String) throws {

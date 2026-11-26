@@ -29,7 +29,7 @@ struct StoredSearchHistory: Codable {
         let decoder = JSONDecoder()
         let version = try decoder.decode(Header.self, from: data).version
         guard version == currentVersion else {
-            throw SearchHistoryStoreError.unsupportedVersion(version)
+            throw SearchHistoryRepositoryError.unsupportedVersion(version)
         }
         return try decoder.decode(StoredSearchHistory.self, from: data)
     }
