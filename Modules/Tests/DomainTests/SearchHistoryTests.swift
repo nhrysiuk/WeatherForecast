@@ -11,13 +11,21 @@ struct SearchHistoryTests {
         #expect(history.cities.map(\.id) == [2, 1])
     }
 
-    @Test func keepsPositionAndUpdatesDataOfReopenedCity() {
+    @Test func movesReopenedCityToTopWithUpdatedData() {
         var history = SearchHistory(cities: [.stub(id: 2), .stub(id: 1, name: "Warsaw")])
 
         history.record(.stub(id: 1, name: "Warszawa"))
 
-        #expect(history.cities.map(\.id) == [2, 1])
-        #expect(history.cities.map(\.name) == ["City", "Warszawa"])
+        #expect(history.cities.map(\.id) == [1, 2])
+        #expect(history.cities.map(\.name) == ["Warszawa", "City"])
+    }
+
+    @Test func keepsHistoryFullWhenReopeningOldestCity() {
+        var history = SearchHistory(cities: (1...SearchHistory.limit).map { .stub(id: $0) })
+
+        history.record(.stub(id: SearchHistory.limit))
+
+        #expect(history.cities.map(\.id) == [SearchHistory.limit] + (1..<SearchHistory.limit))
     }
 
     @Test func dropsOldestCityAtLimit() {

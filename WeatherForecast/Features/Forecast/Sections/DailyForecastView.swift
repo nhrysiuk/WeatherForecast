@@ -21,7 +21,7 @@ struct DailyForecastView: View {
     let timeZone: TimeZone
 
     var body: some View {
-        ForecastSection(title: .dailyForecastTitle, systemImage: "calendar") {
+        ForecastSection(title: .dailyForecastTitle(days.count), systemImage: "calendar") {
             Grid(horizontalSpacing: 12, verticalSpacing: 10) {
                 ForEach(Array(days.enumerated()), id: \.element.date) { index, day in
                     if index > 0 {

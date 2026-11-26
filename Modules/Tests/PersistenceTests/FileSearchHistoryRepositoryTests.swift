@@ -49,15 +49,13 @@ final class FileSearchHistoryRepositoryTests {
               "region": "Pomerania",
               "countryCode": "PL",
               "latitude": 54.35205,
-              "longitude": 18.64637,
-              "timeZone": "Europe/Warsaw"
+              "longitude": 18.64637
             },
             {
               "id": 702550,
               "name": "Lviv",
               "latitude": 49.83826,
-              "longitude": 24.02324,
-              "timeZone": "Europe/Kyiv"
+              "longitude": 24.02324
             }
           ]
         }

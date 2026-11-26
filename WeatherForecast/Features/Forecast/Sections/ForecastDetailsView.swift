@@ -45,7 +45,7 @@ struct ForecastDetailsView: View {
                 ForecastTile(title: .feelsLike, systemImage: "thermometer.medium") {
                     value(current.apparentTemperature.formattedTemperature())
                 }
-                ForecastTile(title: .precipitation, systemImage: "drop.fill") {
+                ForecastTile(title: .precipitationChance, systemImage: "drop.fill") {
                     value(percent(current.precipitationProbability))
                 }
             }
@@ -168,6 +168,6 @@ extension ForecastDetailsView {
             sunrise: today?.sunrise,
             sunset: today?.sunset,
             timeZone: forecast.timeZone
-        ) 
+        )
     }
 }

@@ -200,19 +200,19 @@
       }
     },
     "dailyForecastTitle" : {
-      "comment" : "Title of the section with the forecast for the next days.",
+      "comment" : "Title of the section with the forecast for the next days. The argument is the number of days.",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "7-Day Forecast"
+            "value" : "%lld-Day Forecast"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prognoza 7-dniowa"
+            "value" : "Prognoza %lld-dniowa"
           }
         }
       }
@@ -451,20 +451,20 @@
         }
       }
     },
-    "precipitation" : {
+    "precipitationChance" : {
       "comment" : "Title of the tile with the chance of precipitation.",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Precipitation"
+            "value" : "Chance of Precipitation"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opady"
+            "value" : "Szansa opadów"
           }
         }
       }

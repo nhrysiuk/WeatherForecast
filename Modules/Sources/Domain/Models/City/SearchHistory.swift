@@ -11,10 +11,7 @@ public struct SearchHistory: Equatable, Sendable {
     }
 
     public mutating func record(_ city: City) {
-        if let index = cities.firstIndex(where: { $0.id == city.id }) {
-            cities[index] = city
-            return
-        }
+        cities.removeAll { $0.id == city.id }
         cities.insert(city, at: 0)
         cities = Array(cities.prefix(Self.limit))
     }
