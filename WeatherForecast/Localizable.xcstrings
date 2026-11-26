@@ -559,6 +559,24 @@
         }
       }
     },
+    "thunderstormRiskNote" : {
+      "comment" : "Note under the hourly forecast explaining the bolt badge on hours with a risk of thunderstorms.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thunderstorm risk"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ryzyko burzy"
+          }
+        }
+      }
+    },
     "today" : {
       "comment" : "Label for the current day in the daily forecast.",
       "extractionState" : "manual",

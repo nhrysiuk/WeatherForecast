@@ -30,10 +30,28 @@ struct HourlyForecastView: View {
                         column(for: hour, isNow: index == 0)
                     }
                 }
+                .padding(.top, 4)
             }
             .scrollIndicators(.hidden)
-            .environment(\.timeZone, timeZone)
+            if hours.contains(where: Self.showsRiskBadge) {
+                Label {
+                    Text(.thunderstormRiskNote)
+                } icon: {
+                    Self.riskBadge
+                }
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+            }
         }
+    }
+
+    private static var riskBadge: some View {
+        Image(systemName: "bolt.fill")
+            .foregroundStyle(.orange)
+    }
+
+    private static func showsRiskBadge(_ hour: HourlyForecast) -> Bool {
+        hour.hasThunderstormRisk && hour.condition != .thunderstorm
     }
 
     private func temperature(of hour: HourlyForecast, isNow: Bool) -> Measurement<UnitTemperature> {
@@ -47,27 +65,29 @@ struct HourlyForecastView: View {
         hours.contains { PrecipitationChanceText.isShown($0.precipitationProbability) }
     }
 
-    private func symbolName(for hour: HourlyForecast) -> String {
-        let condition: WeatherCondition = hour.hasThunderstormRisk ? .thunderstorm : hour.condition
-        return condition.symbolName(isDay: hour.isDay)
-    }
-
     private func column(for hour: HourlyForecast, isNow: Bool) -> some View {
         VStack(spacing: 8) {
             Group {
                 if isNow {
                     Text(.now)
                 } else {
-                    Text(hour.time, format: .dateTime.hour())
+                    Text(hour.time, format: Date.FormatStyle(timeZone: timeZone).hour())
                 }
             }
             .font(.footnote.weight(.medium))
             .foregroundStyle(.secondary)
             VStack(spacing: 2) {
-                Image(systemName: symbolName(for: hour))
+                Image(systemName: hour.condition.symbolName(isDay: hour.isDay))
                     .symbolRenderingMode(.hierarchical)
                     .font(.title3)
                     .frame(height: 28)
+                    .overlay(alignment: .topTrailing) {
+                        if Self.showsRiskBadge(hour) {
+                            Self.riskBadge
+                                .font(.caption2)
+                                .offset(x: 6, y: -4)
+                        }
+                    }
                 PrecipitationChanceText(probability: hour.precipitationProbability)
                     .font(.caption.weight(.semibold))
                     .frame(height: 16)

@@ -30,7 +30,6 @@ struct DailyForecastView: View {
                     row(for: day, isToday: index == 0)
                 }
             }
-            .environment(\.timeZone, timeZone)
         }
     }
 
@@ -46,7 +45,7 @@ struct DailyForecastView: View {
                 if isToday {
                     Text(.today)
                 } else {
-                    Text(day.date, format: .dateTime.weekday(.abbreviated))
+                    Text(day.date, format: Date.FormatStyle(timeZone: timeZone).weekday(.abbreviated))
                 }
             }
             .gridColumnAlignment(.leading)

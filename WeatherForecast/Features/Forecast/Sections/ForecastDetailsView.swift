@@ -89,7 +89,6 @@ struct ForecastDetailsView: View {
                 }
             }
         }
-        .environment(\.timeZone, timeZone)
     }
 
     @ViewBuilder
@@ -142,7 +141,7 @@ struct ForecastDetailsView: View {
     @ViewBuilder
     private func timeValue(_ date: Date?) -> some View {
         if let date {
-            Text(date, format: .dateTime.hour().minute())
+            Text(date, format: Date.FormatStyle(timeZone: timeZone).hour().minute())
                 .font(.title2.weight(.medium))
                 .monospacedDigit()
                 .lineLimit(1)
