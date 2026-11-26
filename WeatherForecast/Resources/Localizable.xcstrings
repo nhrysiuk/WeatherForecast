@@ -847,6 +847,24 @@
         }
       }
     },
+    "weatherDataAttribution" : {
+      "comment" : "Link at the bottom of the forecast that credits the weather data source.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weather data by Open-Meteo.com"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dane pogodowe: Open-Meteo.com"
+          }
+        }
+      }
+    },
     "wind" : {
       "comment" : "Title of the tile with wind speed and direction.",
       "extractionState" : "manual",

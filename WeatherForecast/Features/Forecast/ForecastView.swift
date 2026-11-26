@@ -7,6 +7,7 @@ struct ForecastView: View {
     @AppStorage(TemperatureScale.storageKey) private var temperatureScale = TemperatureScale(locale: .autoupdatingCurrent)
 
     private static let maximumContentWidth: CGFloat = 640
+    private static let attributionURL = URL(string: "https://open-meteo.com")!
 
     init(city: City, forecastProvider: any ForecastProviding) {
         _viewModel = State(initialValue: ForecastViewModel(city: city, forecastProvider: forecastProvider))
@@ -100,6 +101,12 @@ struct ForecastView: View {
                     details
                 }
                 .skeleton(isLoading)
+                Link(destination: Self.attributionURL) {
+                    Text(.weatherDataAttribution)
+                }
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .padding(.top, 16)
             }
             .padding()
             .frame(maxWidth: Self.maximumContentWidth)
