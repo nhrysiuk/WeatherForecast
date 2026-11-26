@@ -197,6 +197,7 @@
 		0CCFA7D629A3345092A4A411 /* Release configuration for PBXNativeTarget "WeatherForecast" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 999A46UAZB;
@@ -372,6 +373,7 @@
 		460EB7FD1985ED451A7C7948 /* Debug configuration for PBXNativeTarget "WeatherForecast" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 999A46UAZB;
