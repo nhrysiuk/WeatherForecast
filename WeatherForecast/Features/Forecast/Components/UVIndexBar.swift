@@ -10,7 +10,7 @@ struct UVIndexBar: View {
 
     var body: some View {
         GeometryReader { geometry in
-            let position = min(max(index / Self.scaleMaximum, 0), 1)
+            let position = min(max(index.rounded() / Self.scaleMaximum, 0), 1)
             Capsule()
                 .fill(redactionReasons.isEmpty ? AnyShapeStyle(Self.gradient) : AnyShapeStyle(.fill.tertiary))
                 .overlay(alignment: .leading) {
