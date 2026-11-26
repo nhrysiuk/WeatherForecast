@@ -2,37 +2,37 @@ import Domain
 import Testing
 @testable import WeatherForecast
 
-struct ForecastModelTests {
+struct ForecastViewModelTests {
     private let gdansk = City.stub(id: 1, name: "Gdańsk")
 
     @Test func loadsForecastForCity() async {
         let provider = StubForecastProvider(forecast: .stub())
-        let model = ForecastModel(city: gdansk, forecastProvider: provider)
+        let viewModel = ForecastViewModel(city: gdansk, forecastProvider: provider)
 
-        await model.load()
+        await viewModel.load()
 
-        #expect(model.state == .loaded(.stub()))
+        #expect(viewModel.state == .loaded(.stub()))
         #expect(await provider.requestedForecasts == [gdansk.coordinate])
     }
 
     @Test(arguments: [WeatherError.offline, .server])
     func showsFailure(error: WeatherError) async {
-        let model = ForecastModel(city: gdansk, forecastProvider: StubForecastProvider(failures: [error]))
+        let viewModel = ForecastViewModel(city: gdansk, forecastProvider: StubForecastProvider(failures: [error]))
 
-        await model.load()
+        await viewModel.load()
 
-        #expect(model.state == .failed(error))
+        #expect(viewModel.state == .failed(error))
     }
 
     @Test func retriesAfterFailure() async {
-        let model = ForecastModel(
+        let viewModel = ForecastViewModel(
             city: gdansk,
             forecastProvider: StubForecastProvider(forecast: .stub(), failures: [.offline])
         )
-        await model.load()
+        await viewModel.load()
 
-        await model.load()
+        await viewModel.load()
 
-        #expect(model.state == .loaded(.stub()))
+        #expect(viewModel.state == .loaded(.stub()))
     }
 }

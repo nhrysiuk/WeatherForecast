@@ -7,12 +7,12 @@ struct HomeView: View {
         let attempt: Int
     }
 
-    @Bindable private var model: HomeModel
+    @Bindable private var viewModel: HomeViewModel
     @State private var searchAttempt = 0
     @State private var path: [City] = []
 
-    init(model: HomeModel) {
-        self.model = model
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -23,12 +23,12 @@ struct HomeView: View {
 
     private var content: some View {
         HomeContent(
-            model: model,
+            viewModel: viewModel,
             open: { path.append($0) },
             retrySearch: { searchAttempt += 1 }
         )
             .navigationTitle(Text(.homeTitle))
-            .searchable(text: $model.query, prompt: Text(.searchPrompt))
+            .searchable(text: $viewModel.query, prompt: Text(.searchPrompt))
             .keepsNavigationBarWhileSearching()
             .toolbar {
                 if #available(iOS 26, *) {
@@ -36,14 +36,14 @@ struct HomeView: View {
                 }
             }
             .navigationDestination(for: City.self) { city in
-                ForecastView(city: city, forecastProvider: model.forecastProvider)
-                    .task { await model.save(city) }
+                ForecastView(city: city, forecastProvider: viewModel.forecastProvider)
+                    .task { await viewModel.save(city) }
             }
             .task {
-                await model.loadHistory()
+                await viewModel.loadHistory()
             }
-            .task(id: SearchRequest(query: model.query, attempt: searchAttempt)) {
-                await model.search()
+            .task(id: SearchRequest(query: viewModel.query, attempt: searchAttempt)) {
+                await viewModel.search()
             }
     }
 }
@@ -60,7 +60,7 @@ private extension View {
 }
 
 private struct HomeContent: View {
-    let model: HomeModel
+    let viewModel: HomeViewModel
     let open: (City) -> Void
     let retrySearch: () -> Void
 
@@ -77,11 +77,11 @@ private struct HomeContent: View {
                     }
                 }
         } else if isSearching {
-            SearchView(model: model, open: open, retry: retrySearch)
+            SearchView(viewModel: viewModel, open: open, retry: retrySearch)
         } else {
-            SearchHistoryView(model: model, open: open)
+            SearchHistoryView(viewModel: viewModel, open: open)
                 .toolbar {
-                    if model.historyState == .loaded {
+                    if viewModel.historyState == .loaded {
                         EditButton()
                     }
                 }
@@ -89,7 +89,7 @@ private struct HomeContent: View {
     }
 
     private var showsPlaceholder: Bool {
-        let hasNoHistory = model.historyState == .loaded && model.history.cities.isEmpty
-        return hasNoHistory && (!isSearching || model.searchState == .idle)
+        let hasNoHistory = viewModel.historyState == .loaded && viewModel.history.cities.isEmpty
+        return hasNoHistory && (!isSearching || viewModel.searchState == .idle)
     }
 }

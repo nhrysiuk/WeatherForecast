@@ -4,9 +4,9 @@ import Persistence
 import SwiftUI
 
 @main struct MyApp: App {
-    @State private var homeModel: HomeModel = {
+    @State private var homeViewModel: HomeViewModel = {
         let httpClient = URLSessionHTTPClient()
-        return HomeModel(
+        return HomeViewModel(
             citySearch: OpenMeteoCitySearch(httpClient: httpClient, locale: .current),
             historyStore: FileSearchHistoryStore(),
             forecastProvider: OpenMeteoForecastProvider(httpClient: httpClient)
@@ -15,7 +15,7 @@ import SwiftUI
 
     var body: some Scene {
         WindowGroup {
-            HomeView(model: homeModel)
+            HomeView(viewModel: homeViewModel)
         }
     }
 }

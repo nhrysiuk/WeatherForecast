@@ -2,24 +2,24 @@ import Domain
 import SwiftUI
 
 struct ForecastView: View {
-    @State private var model: ForecastModel
+    @State private var viewModel: ForecastViewModel
     @State private var loadAttempt = 0
 
     init(city: City, forecastProvider: any ForecastProviding) {
-        _model = State(initialValue: ForecastModel(city: city, forecastProvider: forecastProvider))
+        _viewModel = State(initialValue: ForecastViewModel(city: city, forecastProvider: forecastProvider))
     }
 
     var body: some View {
         content
             .navigationBarTitleDisplayMode(.inline)
             .task(id: loadAttempt) {
-                await model.load()
+                await viewModel.load()
             }
     }
 
     @ViewBuilder
     private var content: some View {
-        switch model.state {
+        switch viewModel.state {
         case .loading:
             layout(
                 current: .placeholder,
@@ -37,7 +37,7 @@ struct ForecastView: View {
                 isLoading: false
             )
         case .failed(let error):
-            ErrorStateView(ErrorStateView.Reason(error)) {
+            ErrorStateView(reason: .init(error)) {
                 loadAttempt += 1
             }
         }
@@ -52,7 +52,7 @@ struct ForecastView: View {
     ) -> some View {
         ScrollView {
             VStack(spacing: 4) {
-                Text(model.city.name)
+                Text(viewModel.city.name)
                     .font(.title2.weight(.medium))
                     .multilineTextAlignment(.center)
                 VStack(spacing: 16) {

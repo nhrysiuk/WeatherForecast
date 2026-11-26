@@ -2,14 +2,14 @@ import Domain
 import SwiftUI
 
 struct SearchView: View {
-    let model: HomeModel
+    let viewModel: HomeViewModel
     let open: (City) -> Void
     let retry: () -> Void
 
     var body: some View {
-        switch model.searchState {
+        switch viewModel.searchState {
         case .idle:
-            SearchHistoryView(model: model, open: open)
+            SearchHistoryView(viewModel: viewModel, open: open)
         case .invalid(let error):
             ContentUnavailableView {
                 Label(.invalidNameTitle, systemImage: "character.cursor.ibeam")
@@ -19,11 +19,11 @@ struct SearchView: View {
         case .loading:
             CityListSkeleton()
         case .results(let cities) where cities.isEmpty:
-            ContentUnavailableView.search(text: model.query)
+            ContentUnavailableView.search(text: viewModel.query)
         case .results(let cities):
             results(cities)
         case .failed(let error):
-            ErrorStateView(ErrorStateView.Reason(error), retry: retry)
+            ErrorStateView(reason: .init(error), retry: retry)
         }
     }
 

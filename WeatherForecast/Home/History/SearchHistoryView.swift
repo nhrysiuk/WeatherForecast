@@ -2,38 +2,38 @@ import Domain
 import SwiftUI
 
 struct SearchHistoryView: View {
-    let model: HomeModel
+    let viewModel: HomeViewModel
     let open: (City) -> Void
 
     var body: some View {
-        switch model.historyState {
+        switch viewModel.historyState {
         case .loading:
             CityListSkeleton(showsWeather: true)
         case .failed:
-            ErrorStateView(.unavailable) {
-                Task { await model.loadHistory() }
+            ErrorStateView(reason: .unavailable) {
+                Task { await viewModel.loadHistory() }
             }
         case .loaded:
             List {
                 Section {
-                    ForEach(model.history.cities) { city in
+                    ForEach(viewModel.history.cities) { city in
                         CityLink(city: city, open: open) {
                             HistoryRow(
                                 city: city,
-                                summary: model.summaries[city.coordinate],
-                                showsSkeleton: !model.summariesFailed
+                                summary: viewModel.summaries[city.coordinate],
+                                showsSkeleton: !viewModel.summariesFailed
                             )
                         }
                     }
                     .onDelete { offsets in
-                        Task { await model.remove(atOffsets: offsets) }
+                        Task { await viewModel.remove(atOffsets: offsets) }
                     }
                 } header: {
                     Text(.recentSearchesHeader)
                 }
             }
-            .task(id: model.history.cities.map(\.coordinate)) {
-                await model.loadSummaries()
+            .task(id: viewModel.history.cities.map(\.coordinate)) {
+                await viewModel.loadSummaries()
             }
         }
     }

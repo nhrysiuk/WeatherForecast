@@ -6,7 +6,7 @@ import os
 private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "WeatherForecast", category: "Home")
 
 @Observable
-final class HomeModel {
+final class HomeViewModel {
     enum HistoryState: Equatable {
         case loading
         case loaded

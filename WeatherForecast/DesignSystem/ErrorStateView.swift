@@ -6,13 +6,8 @@ struct ErrorStateView: View {
         case unavailable
     }
 
-    private let reason: Reason
-    private let retry: () -> Void
-
-    init(_ reason: Reason, retry: @escaping () -> Void) {
-        self.reason = reason
-        self.retry = retry
-    }
+    let reason: Reason
+    let retry: () -> Void
 
     var body: some View {
         ContentUnavailableView {

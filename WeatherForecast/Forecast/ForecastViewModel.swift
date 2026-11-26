@@ -6,7 +6,7 @@ import os
 private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "WeatherForecast", category: "Forecast")
 
 @Observable
-final class ForecastModel {
+final class ForecastViewModel {
     enum State: Equatable {
         case loading
         case loaded(Forecast)
