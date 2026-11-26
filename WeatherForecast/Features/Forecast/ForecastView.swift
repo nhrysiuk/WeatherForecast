@@ -4,6 +4,7 @@ import SwiftUI
 struct ForecastView: View {
     @State private var viewModel: ForecastViewModel
     @State private var loadAttempt = 0
+    @AppStorage(TemperatureScale.storageKey) private var temperatureScale = TemperatureScale(locale: .autoupdatingCurrent)
 
     private static let maximumContentWidth: CGFloat = 640
 
@@ -18,7 +19,22 @@ struct ForecastView: View {
                 WeatherBackground(style: backgroundStyle)
             }
             .environment(\.timeZone, timeZone)
+            .environment(\.temperatureScale, temperatureScale)
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Menu {
+                        Picker(.temperatureUnit, selection: $temperatureScale) {
+                            ForEach(TemperatureScale.allCases) { scale in
+                                Text(scale.name)
+                            }
+                        }
+                    } label: {
+                        Text(verbatim: temperatureScale.unit.symbol)
+                    }
+                    .navigationBarItemTint()
+                }
+            }
             .task(id: loadAttempt) {
                 await viewModel.load()
             }

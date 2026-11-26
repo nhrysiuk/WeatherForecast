@@ -32,6 +32,7 @@ struct ForecastDetailsView: View {
     let timeZone: TimeZone
 
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.temperatureScale) private var temperatureScale
 
     var body: some View {
         if dynamicTypeSize.isAccessibilitySize {
@@ -81,7 +82,7 @@ struct ForecastDetailsView: View {
 
     private var feelsLikeTile: some View {
         ForecastTile(title: .feelsLike, systemImage: "thermometer.medium", tint: .red) {
-            value(current.apparentTemperature.formattedTemperature())
+            value(current.apparentTemperature.formattedTemperature(scale: temperatureScale))
         }
     }
 

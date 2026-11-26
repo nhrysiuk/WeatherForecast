@@ -22,6 +22,7 @@ struct HourlyForecastView: View {
     let timeZone: TimeZone
     let currentTemperature: Measurement<UnitTemperature>?
 
+    @Environment(\.temperatureScale) private var temperatureScale
     @ScaledMetric(relativeTo: .title3) private var iconHeight = 28.0
     @ScaledMetric(relativeTo: .caption2) private var precipitationHeight = 14.0
 
@@ -95,7 +96,7 @@ struct HourlyForecastView: View {
                     .frame(height: precipitationHeight)
             }
             .frame(height: hasPrecipitationRow ? iconHeight + precipitationHeight + 2 : iconHeight)
-            Text(temperature(of: hour, isNow: isNow).formattedTemperature())
+            Text(temperature(of: hour, isNow: isNow).formattedTemperature(scale: temperatureScale))
                 .font(.title3)
         }
         .monospacedDigit()

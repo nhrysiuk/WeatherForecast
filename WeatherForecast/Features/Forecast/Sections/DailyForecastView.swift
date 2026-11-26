@@ -21,6 +21,7 @@ struct DailyForecastView: View {
     let timeZone: TimeZone
 
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.temperatureScale) private var temperatureScale
 
     var body: some View {
         ForecastSection(title: .dailyForecastTitle(days.count), systemImage: "calendar", tint: .indigo) {
@@ -62,11 +63,11 @@ struct DailyForecastView: View {
                 precipitation(of: day)
             }
             .frame(minWidth: 32)
-            Text(day.minTemperature.formattedTemperature())
+            Text(day.minTemperature.formattedTemperature(scale: temperatureScale))
                 .foregroundStyle(.secondary)
                 .gridColumnAlignment(.trailing)
             rangeBar(for: day)
-            Text(day.maxTemperature.formattedTemperature())
+            Text(day.maxTemperature.formattedTemperature(scale: temperatureScale))
                 .gridColumnAlignment(.trailing)
         }
         .font(.body.weight(.medium))
@@ -82,8 +83,8 @@ struct DailyForecastView: View {
                 precipitation(of: day)
             }
             Text(.highLowTemperature(
-                day.maxTemperature.formattedTemperature(),
-                day.minTemperature.formattedTemperature()
+                day.maxTemperature.formattedTemperature(scale: temperatureScale),
+                day.minTemperature.formattedTemperature(scale: temperatureScale)
             ))
             .foregroundStyle(.secondary)
             rangeBar(for: day)

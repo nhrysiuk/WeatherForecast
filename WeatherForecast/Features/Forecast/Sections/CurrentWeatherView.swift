@@ -22,11 +22,12 @@ struct CurrentWeatherView: View {
     let isDay: Bool
     let today: DailyForecast?
 
+    @Environment(\.temperatureScale) private var temperatureScale
     @ScaledMetric(relativeTo: .largeTitle) private var temperatureSize = 88.0
 
     var body: some View {
         VStack(spacing: 4) {
-            Text(temperature.formattedTemperature())
+            Text(temperature.formattedTemperature(scale: temperatureScale))
                 .font(.system(size: temperatureSize, weight: .semibold, design: .rounded))
                 .shadow(color: .black.opacity(0.08), radius: 12, y: 6)
                 .lineLimit(1)
@@ -39,8 +40,8 @@ struct CurrentWeatherView: View {
             .font(.title3.weight(.medium))
             if let today {
                 Text(.highLowTemperature(
-                    today.maxTemperature.formattedTemperature(),
-                    today.minTemperature.formattedTemperature()
+                    today.maxTemperature.formattedTemperature(scale: temperatureScale),
+                    today.minTemperature.formattedTemperature(scale: temperatureScale)
                 ))
                 .font(.callout)
                 .foregroundStyle(.secondary)
