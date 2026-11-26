@@ -50,10 +50,8 @@ private extension Forecast {
         let current = CurrentConditions(
             temperature: celsius,
             apparentTemperature: celsius,
-            cloudCover: 0,
             precipitationProbability: 0,
             relativeHumidity: 0,
-            pressure: Measurement(value: 1013, unit: .hectopascals),
             visibility: Measurement(value: 10, unit: .kilometers),
             uvIndex: 0,
             wind: Wind(

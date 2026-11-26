@@ -199,6 +199,42 @@
         }
       }
     },
+    "dailyForecastTitle" : {
+      "comment" : "Title of the section with the forecast for the next days. The argument is the number of days.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld-Day Forecast"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prognoza %lld-dniowa"
+          }
+        }
+      }
+    },
+    "feelsLike" : {
+      "comment" : "Title of the tile with the temperature it feels like.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feels Like"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odczuwalna"
+          }
+        }
+      }
+    },
     "findCityMessage" : {
       "comment" : "Message shown on the home screen before the user starts searching.",
       "extractionState" : "manual",
@@ -236,7 +272,7 @@
       }
     },
     "highLowTemperature" : {
-      "comment" : "Today's highest and lowest temperature next to a city. The first value is the high, the second the low.",
+      "comment" : "Today's highest and lowest temperature. The first value is the high, the second the low.",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -249,24 +285,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Maks.: %1$@ Min.: %2$@"
-          }
-        }
-      }
-    },
-    "historyFullMessage" : {
-      "comment" : "Shown above search results when the saved list has reached its limit.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your list is full. Remove a city to add a new one."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lista jest pełna. Usuń miasto, aby dodać nowe."
           }
         }
       }
@@ -285,6 +303,42 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pogoda"
+          }
+        }
+      }
+    },
+    "hourlyForecastTitle" : {
+      "comment" : "Title of the section with the forecast for the next hours.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hourly Forecast"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prognoza godzinowa"
+          }
+        }
+      }
+    },
+    "humidity" : {
+      "comment" : "Title of the tile with relative humidity.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Humidity"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wilgotność"
           }
         }
       }
@@ -343,6 +397,24 @@
         }
       }
     },
+    "now" : {
+      "comment" : "Label for the current hour in the hourly forecast.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Now"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teraz"
+          }
+        }
+      }
+    },
     "offlineMessage" : {
       "comment" : "Message shown when the device is offline.",
       "extractionState" : "manual",
@@ -379,6 +451,24 @@
         }
       }
     },
+    "precipitationChance" : {
+      "comment" : "Title of the tile with the chance of precipitation.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chance of Precipitation"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Szansa opadów"
+          }
+        }
+      }
+    },
     "recentSearchesHeader" : {
       "comment" : "Header above the list of cities the user searched for.",
       "extractionState" : "manual",
@@ -397,6 +487,24 @@
         }
       }
     },
+    "searchMinimumLettersHint" : {
+      "comment" : "Hint shown in the middle of the empty search screen while the typed city name is too short to search.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type at least 2 letters to search."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wpisz co najmniej 2 litery, aby wyszukać."
+          }
+        }
+      }
+    },
     "searchPrompt" : {
       "comment" : "Placeholder in the city search field.",
       "extractionState" : "manual",
@@ -411,6 +519,78 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Szukaj miasta"
+          }
+        }
+      }
+    },
+    "sunrise" : {
+      "comment" : "Label next to the time of sunrise.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sunrise"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wschód słońca"
+          }
+        }
+      }
+    },
+    "sunset" : {
+      "comment" : "Label next to the time of sunset.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sunset"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zachód słońca"
+          }
+        }
+      }
+    },
+    "thunderstormRiskNote" : {
+      "comment" : "Note under the hourly forecast explaining the bolt badge on hours with a risk of thunderstorms.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thunderstorm risk"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ryzyko burzy"
+          }
+        }
+      }
+    },
+    "today" : {
+      "comment" : "Label for the current day in the daily forecast.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dziś"
           }
         }
       }
@@ -465,6 +645,186 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Coś poszło nie tak"
+          }
+        }
+      }
+    },
+    "uvExtreme" : {
+      "comment" : "Level of the UV index, shown next to its value.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Extreme"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ekstremalny"
+          }
+        }
+      }
+    },
+    "uvHigh" : {
+      "comment" : "Level of the UV index, shown next to its value.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "High"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wysoki"
+          }
+        }
+      }
+    },
+    "uvIndex" : {
+      "comment" : "Title of the tile with the UV index.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UV Index"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indeks UV"
+          }
+        }
+      }
+    },
+    "uvLow" : {
+      "comment" : "Level of the UV index, shown next to its value.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Low"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niski"
+          }
+        }
+      }
+    },
+    "uvModerate" : {
+      "comment" : "Level of the UV index, shown next to its value.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moderate"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umiarkowany"
+          }
+        }
+      }
+    },
+    "uvSunscreen" : {
+      "comment" : "Advice shown when the UV index is moderate or higher.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use sunscreen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Użyj kremu z filtrem"
+          }
+        }
+      }
+    },
+    "uvVeryHigh" : {
+      "comment" : "Level of the UV index, shown next to its value.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Very High"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bardzo wysoki"
+          }
+        }
+      }
+    },
+    "visibility" : {
+      "comment" : "Title of the tile with how far one can see.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visibility"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widoczność"
+          }
+        }
+      }
+    },
+    "wind" : {
+      "comment" : "Title of the tile with wind speed and direction.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wind"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wiatr"
+          }
+        }
+      }
+    },
+    "windGusts" : {
+      "comment" : "Shown under the wind speed. The value is the speed of wind gusts.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusts %@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porywy %@"
           }
         }
       }

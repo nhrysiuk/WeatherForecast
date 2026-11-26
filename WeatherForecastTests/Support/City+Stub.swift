@@ -1,5 +1,4 @@
 import Domain
-import Foundation
 
 extension City {
     nonisolated static func stub(
@@ -12,8 +11,7 @@ extension City {
             name: name,
             region: "Pomeranian Voivodeship",
             countryCode: "PL",
-            coordinate: coordinate,
-            timeZone: TimeZone(identifier: "Europe/Warsaw")!
+            coordinate: coordinate
         )
     }
 }

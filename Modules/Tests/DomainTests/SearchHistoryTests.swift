@@ -6,25 +6,34 @@ struct SearchHistoryTests {
     @Test func addsNewCityAtTop() {
         var history = SearchHistory(cities: [.stub(id: 1)])
 
-        #expect(history.record(.stub(id: 2)) == .added)
+        history.record(.stub(id: 2))
+
         #expect(history.cities.map(\.id) == [2, 1])
     }
 
-    @Test func keepsPositionAndUpdatesDataOfReopenedCity() {
+    @Test func movesReopenedCityToTopWithUpdatedData() {
         var history = SearchHistory(cities: [.stub(id: 2), .stub(id: 1, name: "Warsaw")])
 
-        #expect(history.record(.stub(id: 1, name: "Warszawa")) == .alreadySaved)
-        #expect(history.cities.map(\.id) == [2, 1])
-        #expect(history.cities.map(\.name) == ["City", "Warszawa"])
+        history.record(.stub(id: 1, name: "Warszawa"))
+
+        #expect(history.cities.map(\.id) == [1, 2])
+        #expect(history.cities.map(\.name) == ["Warszawa", "City"])
     }
 
-    @Test func stopsAddingAtLimitWithoutRemovingAnything() {
+    @Test func keepsHistoryFullWhenReopeningOldestCity() {
         var history = SearchHistory(cities: (1...SearchHistory.limit).map { .stub(id: $0) })
-        let saved = history.cities
 
-        #expect(history.record(.stub(id: 100)) == .full)
-        #expect(history.cities == saved)
-        #expect(history.record(.stub(id: 1)) == .alreadySaved)
+        history.record(.stub(id: SearchHistory.limit))
+
+        #expect(history.cities.map(\.id) == [SearchHistory.limit] + (1..<SearchHistory.limit))
+    }
+
+    @Test func dropsOldestCityAtLimit() {
+        var history = SearchHistory(cities: (1...SearchHistory.limit).map { .stub(id: $0) })
+
+        history.record(.stub(id: 100))
+
+        #expect(history.cities.map(\.id) == [100] + (1..<SearchHistory.limit))
     }
 
     @Test func removesCitiesAtOffsets() {
@@ -33,19 +42,6 @@ struct SearchHistoryTests {
         history.remove(atOffsets: [1, 3])
 
         #expect(history.cities.map(\.id) == [1, 3])
-    }
-
-    @Test(arguments: [
-        (source: [0], destination: 3, expected: [2, 3, 1, 4]),
-        (source: [3], destination: 0, expected: [4, 1, 2, 3]),
-        (source: [0, 2], destination: 4, expected: [2, 4, 1, 3]),
-    ])
-    func movesCitiesLikeSwiftUIList(source: [Int], destination: Int, expected: [Int]) {
-        var history = SearchHistory(cities: [.stub(id: 1), .stub(id: 2), .stub(id: 3), .stub(id: 4)])
-
-        history.move(fromOffsets: IndexSet(source), toOffset: destination)
-
-        #expect(history.cities.map(\.id) == expected)
     }
 
     @Test func removesDuplicatesFromRestoredCities() {

@@ -5,10 +5,8 @@ struct ForecastResponse: Decodable {
     struct Current: Decodable {
         let temperature: Double
         let apparentTemperature: Double
-        let cloudCover: Int
         let precipitationProbability: Int
         let relativeHumidity: Int
-        let pressure: Double
         let visibility: Double
         let uvIndex: Double?
         let windSpeed: Double
@@ -20,10 +18,8 @@ struct ForecastResponse: Decodable {
         enum CodingKeys: String, CodingKey, CaseIterable {
             case temperature = "temperature_2m"
             case apparentTemperature = "apparent_temperature"
-            case cloudCover = "cloud_cover"
             case precipitationProbability = "precipitation_probability"
             case relativeHumidity = "relative_humidity_2m"
-            case pressure = "pressure_msl"
             case visibility
             case uvIndex = "uv_index"
             case windSpeed = "wind_speed_10m"
@@ -66,7 +62,6 @@ struct ForecastResponse: Decodable {
         let precipitationProbability: [Int]
         let sunrise: [TimeInterval]
         let sunset: [TimeInterval]
-        let moonPhase: [Double]
 
         enum CodingKeys: String, CodingKey, CaseIterable {
             case time
@@ -76,7 +71,6 @@ struct ForecastResponse: Decodable {
             case precipitationProbability = "precipitation_probability_max"
             case sunrise
             case sunset
-            case moonPhase = "moon_phase"
         }
 
         static let requestedFields = CodingKeys.queryValue(excluding: .time)
@@ -114,10 +108,8 @@ extension ForecastResponse.Current {
         CurrentConditions(
             temperature: Measurement(value: temperature, unit: .celsius),
             apparentTemperature: Measurement(value: apparentTemperature, unit: .celsius),
-            cloudCover: cloudCover,
             precipitationProbability: precipitationProbability,
             relativeHumidity: relativeHumidity,
-            pressure: Measurement(value: pressure, unit: .hectopascals),
             visibility: Measurement(value: visibility, unit: .meters),
             uvIndex: uvIndex,
             wind: Wind(
@@ -165,8 +157,7 @@ extension ForecastResponse.Daily {
             minTemperature.count,
             precipitationProbability.count,
             sunrise.count,
-            sunset.count,
-            moonPhase.count
+            sunset.count
         )
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = timeZone
@@ -180,8 +171,7 @@ extension ForecastResponse.Daily {
                 precipitationProbability: precipitationProbability[index],
                 condition: WeatherCondition(wmoCode: weatherCode[index]),
                 sunrise: Self.event(at: sunrise[index], within: day),
-                sunset: Self.event(at: sunset[index], within: day),
-                moonPhase: moonPhase[index]
+                sunset: Self.event(at: sunset[index], within: day)
             )
         }
     }
