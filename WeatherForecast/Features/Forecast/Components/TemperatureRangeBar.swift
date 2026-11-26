@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TemperatureRangeBar: View {
+    private static let minimumWidth: CGFloat = 5
+
     let range: ClosedRange<Double>
     let scale: ClosedRange<Double>
 
@@ -12,21 +14,27 @@ struct TemperatureRangeBar: View {
             let span = max(scale.upperBound - scale.lowerBound, 1)
             let start = (range.lowerBound - scale.lowerBound) / span * width
             let end = (range.upperBound - scale.lowerBound) / span * width
+            let barWidth = max(end - start, Self.minimumWidth)
             Capsule()
                 .fill(.fill.tertiary)
-                .overlay {
-                    LinearGradient(
-                        colors: redactionReasons.isEmpty ? [.cyan, .yellow, .orange] : [.clear],
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                    .mask(alignment: .leading) {
-                        Capsule()
-                            .frame(width: max(end - start, 4))
-                            .offset(x: start)
-                    }
+                .overlay(alignment: .leading) {
+                    Capsule()
+                        .fill(fill)
+                        .frame(width: barWidth)
+                        .offset(x: min(start, width - barWidth))
                 }
         }
-        .frame(height: 5)
+        .frame(height: 6)
+    }
+
+    private var fill: AnyShapeStyle {
+        guard redactionReasons.isEmpty else {
+            return AnyShapeStyle(.clear)
+        }
+        return AnyShapeStyle(LinearGradient(
+            gradient: TemperatureColorScale.gradient(for: range),
+            startPoint: .leading,
+            endPoint: .trailing
+        ))
     }
 }
