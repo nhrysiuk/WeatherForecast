@@ -458,13 +458,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chance of Precipitation"
+            "value" : "Precipitation"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Szansa opadów"
+            "value" : "Opady"
           }
         }
       }
