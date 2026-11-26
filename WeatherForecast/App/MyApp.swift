@@ -5,6 +5,7 @@ import SwiftUI
     @State private var router: AppRouter
 
     init() {
+        NavigationBarAppearance.apply()
         let dependencies = AppDependencies.live()
         self.dependencies = dependencies
         _router = State(initialValue: AppRouter(historyStore: dependencies.historyStore))
