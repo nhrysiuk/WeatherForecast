@@ -15,6 +15,11 @@ Dane pogodowe i geokodowanie pochodzą z [Open-Meteo](https://open-meteo.com), w
     <td><img src="docs/screenshots/dark-forecast.PNG" width="220" alt="Prognoza, tryb ciemny"></td>
     <td><img src="docs/screenshots/dark-forecast-2.PNG" width="220" alt="Szczegóły prognozy, tryb ciemny"></td>
   </tr>
+  <tr>
+    <td><img src="docs/screenshots/state-empty-history.png" width="220" alt="Pusta historia wyszukiwań"></td>
+    <td><img src="docs/screenshots/state-no-results.png" width="220" alt="Brak wyników wyszukiwania"></td>
+    <td><img src="docs/screenshots/state-offline.png" width="220" alt="Brak połączenia z internetem"></td>
+  </tr>
 </table>
 
 ## Funkcje
@@ -25,6 +30,8 @@ Dane pogodowe i geokodowanie pochodzą z [Open-Meteo](https://open-meteo.com), w
 - **Prognoza godzinowa** na najbliższe 24 godziny w strefie czasowej wybranego miasta, z szansą opadów i oznaczeniem ryzyka burzy
 - **Prognoza 7-dniowa** z paskami zakresu temperatur kolorowanymi według stałej skali, więc ta sama temperatura ma zawsze ten sam kolor
 - **Kafelki szczegółów**: wschód i zachód słońca, temperatura odczuwalna, opady, widoczność, wilgotność, wiatr z porywami i kierunkiem oraz indeks UV
+- **Brak połączenia**: bez internetu wyszukiwanie i prognoza pokazują komunikat „Brak połączenia z internetem” z przyciskiem „Spróbuj ponownie”, a inne błędy mają osobny komunikat
+- **Puste stany**: pusta historia zachęca do wyszukania miasta („Znajdź miasto”), a wyszukiwanie bez wyników pokazuje „Brak wyników” z podpowiedzią
 - **Stopnie Celsjusza i Fahrenheita**, domyślnie według regionu urządzenia, z zapamiętanym wyborem
 - **Tryb jasny i ciemny**, łącznie z ikoną aplikacji i ekranem startowym
 - **Układy dla dużego tekstu** przy rozmiarach dostępności oraz szkielety ładowania respektujące ustawienie „Ogranicz ruch”
