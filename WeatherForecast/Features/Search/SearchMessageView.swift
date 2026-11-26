@@ -1,42 +1,36 @@
 import Domain
 import SwiftUI
 
-struct SearchView: View {
+struct SearchMessageView: View {
     let query: String
     let search: SearchViewModel
-    let historyStore: HistoryStore
-    let open: (City) -> Void
     let retry: () -> Void
 
     var body: some View {
         switch search.state {
-        case .idle:
-            SearchHistoryView(historyStore: historyStore, open: open)
+        case .idle where hasTypedText:
+            Text(.searchMinimumLettersHint)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
         case .invalid(let error):
             ContentUnavailableView {
                 Label(.invalidNameTitle, systemImage: "character.cursor.ibeam")
             } description: {
                 Text(error.message)
             }
-        case .loading:
-            CityListSkeleton()
         case .results(let cities) where cities.isEmpty:
             ContentUnavailableView.search(text: query)
-        case .results(let cities):
-            results(cities)
         case .failed(let error):
             ErrorStateView(reason: .init(error), retry: retry)
+        case .idle, .loading, .results:
+            EmptyView()
         }
     }
 
-    private func results(_ cities: [City]) -> some View {
-        List {
-            ForEach(cities) { city in
-                CityLink(city: city, open: open) {
-                    CityRow(city: city)
-                }
-            }
-        }
+    private var hasTypedText: Bool {
+        query.contains { !$0.isWhitespace }
     }
 }
 

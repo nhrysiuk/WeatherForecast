@@ -168,6 +168,6 @@ extension ForecastDetailsView {
             sunrise: today?.sunrise,
             sunset: today?.sunset,
             timeZone: forecast.timeZone
-        )
+        ) 
     }
 }

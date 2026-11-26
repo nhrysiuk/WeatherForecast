@@ -488,7 +488,7 @@
       }
     },
     "searchMinimumLettersHint" : {
-      "comment" : "Hint shown next to the search field while the typed city name is too short to search.",
+      "comment" : "Hint shown in the middle of the empty search screen while the typed city name is too short to search.",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {

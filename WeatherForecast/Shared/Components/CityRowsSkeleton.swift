@@ -1,7 +1,7 @@
 import Domain
 import SwiftUI
 
-struct CityListSkeleton: View {
+struct CityRowsSkeleton: View {
     private static let rowCount = 6
     private static let placeholder = City(
         id: 0,
@@ -12,9 +12,9 @@ struct CityListSkeleton: View {
     )
 
     var body: some View {
-        List(0..<Self.rowCount, id: \.self) { _ in
+        ForEach(0..<Self.rowCount, id: \.self) { _ in
             CityRow(city: Self.placeholder)
+                .skeleton(true)
         }
-        .skeleton(true)
     }
 }
