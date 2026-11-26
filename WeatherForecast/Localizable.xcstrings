@@ -487,6 +487,24 @@
         }
       }
     },
+    "searchMinimumLettersHint" : {
+      "comment" : "Hint shown next to the search field while the typed city name is too short to search.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type at least 2 letters to search."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wpisz co najmniej 2 litery, aby wyszukać."
+          }
+        }
+      }
+    },
     "searchPrompt" : {
       "comment" : "Placeholder in the city search field.",
       "extractionState" : "manual",

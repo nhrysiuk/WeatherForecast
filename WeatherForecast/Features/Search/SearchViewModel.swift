@@ -23,14 +23,15 @@ final class SearchViewModel {
     }
 
     func search(for query: String) async {
-        let name: String
+        let name: String?
         do throws(CityNameValidationError) {
             name = try CityNameValidator.validate(query)
-        } catch .tooShort {
-            state = .idle
-            return
         } catch {
             state = .invalid(error)
+            return
+        }
+        guard let name else {
+            state = .idle
             return
         }
 

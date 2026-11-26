@@ -57,6 +57,24 @@ struct HomeView: View {
 }
 
 private extension View {
+    func searchHint(isVisible: Bool) -> some View {
+        safeAreaInset(edge: searchHintEdge) {
+            if isVisible {
+                Text(.searchMinimumLettersHint)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 8)
+                    .background(Color(.systemGroupedBackground))
+            }
+        }
+    }
+
+    private var searchHintEdge: VerticalEdge {
+        if #available(iOS 26, *) { .bottom } else { .top }
+    }
+
     @ViewBuilder
     func keepsNavigationBarWhileSearching() -> some View {
         if #available(iOS 17.1, *) {
@@ -77,6 +95,12 @@ private struct HomeContent: View {
     @Environment(\.isSearching) private var isSearching
 
     var body: some View {
+        content
+            .searchHint(isVisible: needsMoreLetters)
+    }
+
+    @ViewBuilder
+    private var content: some View {
         if showsPlaceholder {
             List {}
                 .overlay {
@@ -96,6 +120,10 @@ private struct HomeContent: View {
                     }
                 }
         }
+    }
+
+    private var needsMoreLetters: Bool {
+        isSearching && search.state == .idle && query.contains { !$0.isWhitespace }
     }
 
     private var showsPlaceholder: Bool {

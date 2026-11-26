@@ -45,7 +45,7 @@ private extension CityNameValidationError {
         switch self {
         case .containsDigits:
             .invalidNameDigits
-        case .containsDisallowedCharacters, .tooShort:
+        case .containsDisallowedCharacters:
             .invalidNameCharacters
         }
     }

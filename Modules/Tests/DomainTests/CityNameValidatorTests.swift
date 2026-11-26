@@ -33,9 +33,7 @@ struct CityNameValidatorTests {
     }
 
     @Test(arguments: ["", "   ", "Ł", "- -"])
-    func rejectsTooShortNames(_ name: String) {
-        #expect(throws: CityNameValidationError.tooShort) {
-            try CityNameValidator.validate(name)
-        }
+    func returnsNothingForTooShortNames(_ name: String) throws {
+        #expect(try CityNameValidator.validate(name) == nil)
     }
 }
